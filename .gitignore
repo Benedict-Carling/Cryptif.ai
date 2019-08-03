@@ -1,0 +1,8 @@
+# Local compilation code
+*.pyc
+
+# Editor directories and files
+.vscode
+
+# Local env files
+venv
