@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-    <p> </p>
     <h1>Cryptanalysis</h1>
-    <div>Here you can find hidden information in your cipher text which reveals which classical cipher it has been encrypted with </div>
-    <div>The frequncy distribution and Index of coindidence can reveal language and encryption algorithm</div>
+    <div>Here you can find hidden information in your cipher text which reveals which classical cipher it has been encrypted with.</div>
+    <div>The frequency distribution and Index of coincidence can reveal language and the encryption algorithm used.</div>
     <form method="post">
-        <p style="height: 100px"><input style="height: 100px" type=text name=C_text>
-        <p style="width: 10%"><input type=submit value=Decrypt>
+        <textarea name=C_text></textarea> 
+        <input type=submit value=Decrypt>
     </form>
     jsFreq = {{Frequency}}
     <canvas id="myChart" width="950" height="200"></canvas>
@@ -222,15 +221,10 @@
         });
     </script>
 
-
-
     <form method="post">
-        <p><output type=text name=C_text>
+        <output type=text name=C_text>
     </form>
 
-    <p>IOC of Cipher Text:   {{IOC}}</p>
+    <p style="padding-top: 10px">IOC of Cipher Text:   {{IOC}}</p>
 
-
-
-    
 {% endblock content %}
