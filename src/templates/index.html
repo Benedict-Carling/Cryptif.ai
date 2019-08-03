@@ -3,7 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Skeleton Template</title>
+    <meta name="msapplication-TileColor" content="#7dc5bc" />
+    <meta name="theme-color" content="#7dc5bc" />
+    <meta name="author" content="Benedict Carling & Giovanni Passerello" />
+    <title>Cyptif.ai</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+
     <link
       href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
       rel="stylesheet"
@@ -17,6 +22,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
     />
+
     <style>
       textarea {
         width: 100%;
@@ -61,7 +67,7 @@
   </head>
   <body>
     <div class="topnav">
-      <a class="active" href="/home">Home</a>
+      <a class="active" href="/">Home</a>
       <a href="/format">Format Text</a>
       <a href="/cryptanalysis">Cryptanalysis</a>
       <a href="/ceaser">Ceaser Decrypt</a>

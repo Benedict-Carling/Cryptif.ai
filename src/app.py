@@ -7,44 +7,9 @@ app = Flask(__name__)
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+####################################   Routing   ####################################
 
-####################################  Routing section   ##################################
-
-@app.route('/')
-def index():
-    if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
-    else:
-        return 'You are not logged in boi'
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        session['username'] = request.form['username']
-        return redirect(url_for('index'))
-    return '''
-        <form method="post">
-            <p><input type=text name=username>
-            <p><input type=submit value=Login>
-        </form>
-    '''
-
-@app.route('/logout', methods=['GET', 'POST'])
-def logout():
-    if request.method == 'POST':
-        session.pop('username', None)
-        return redirect('/login')
-    return '''
-        <form method="post">
-            <p><input type=submit value=Logout>
-        </form>
-    '''
-
-@app.route('/layout')
-def layout():
-    return render_template('layout.html')
-
-@app.route('/home')
+@app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
 
@@ -96,7 +61,4 @@ def cryptanalysis():
         return render_template('cryptanalysis.html', Frequency = frequency_list_generate(C_text), IOC = str(IC(C_text,1)))
     return render_template('cryptanalysis.html', Frequency = frequency_list_generate(''))
 
-
-
-
-####################################### Route End ##################################
+####################################   End of Routing   ####################################
