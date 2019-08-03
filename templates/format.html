@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <p> </p>
+    <h1>Format your Cipher Text </h1>
+    <p>Format your Cipher Text here before decryption, remove white space, remove punctional, shift all lettters to lower case</p>
+    <form method="post">
+        <input type=text name=C_text>
+        <input name="method" type="radio" value=LowerCase>Lower Case</input>
+        <input name="method" type="radio" value=RemoveSpaces>Remove Spaces</input>
+        <input name="method" type="radio" value=RemovePunctuation>Remove Punctuation</input>
+        <input name="method" type="radio" value=CompleteFormatt>CompleteFormatt</input>
+        <button type="submit">Submit</button>
+    </form>
+
+    <textarea>{{Cipher_text}}</textarea>
+
+    <form method="post">
+        <p><output type=text name=C_text>
+    </form>
+
+    
+{% endblock content %}

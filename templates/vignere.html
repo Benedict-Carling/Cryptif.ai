@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+    <p> </p>
+    <h1>Vignere Cipher Decryption</h1>
+    <p>Copy and Paste your decrypted cipher text below and click decrypt to return the hidden plain text</p>
+    <form method="post">
+        <p style="height: 40%"><input type=text name=C_text>
+        <p style="width: 10%"><input type=submit value=Decrypt>
+    </form>
+
+    <h2>Your Key Lenght is: {{Key_length}}   |   Your Key is: {{Key_text}}</h2>
+    <textarea>
+        {{Cipher_text}}
+    </textarea>
+
+    <form method="post">
+        <p><output type=text name=C_text>
+    </form>
+
+    
+{% endblock content %}
