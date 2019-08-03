@@ -94,7 +94,9 @@ def cryptanalysis():
     if request.method == 'POST':
         C_text = scrub_string(request.form['C_text'])
         return render_template('cryptanalysis.html', Frequency = frequency_list_generate(C_text), IOC = str(IC(C_text,1)))
-    return render_template('cryptanalysis.html', Frequency = '')
+    return render_template('cryptanalysis.html', Frequency = frequency_list_generate(''))
+
+
 
 
 ####################################### Route End ##################################

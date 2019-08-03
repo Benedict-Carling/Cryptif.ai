@@ -7,30 +7,14 @@
         <textarea name=C_text></textarea> 
         <input type=submit value=Decrypt>
     </form>
-    jsFreq = {{Frequency}}
     <canvas id="myChart" width="950" height="200"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
 
     <script>
-        //var jsFreq = JSON.parse('{{Frequency}}');
-        //jsFreq = Frequency
-
-        function getSum(myArray) {
-          return myArray.reduce((acc, elem) => acc + elem, 0)
-        }    
-
-        function getPercentagePerKey(myArray) {
-            var sum = getSum(myArray);
-            var arrayWithPercentages = [];
-            for (key in myArray) {
-                val = myArray[key];
-                arrayWithPercentages.push((val / sum));
-            }
-            return arrayWithPercentages;  
-        }
-
-        var percentageArray = getPercentagePerKey(Frequency)
+        const freq = '{{Frequency}}'.slice(1,-1).split(', ')
+        const sum = freq.reduce((acc, elem) => acc + parseFloat(elem), 0)
+        const percentages =  sum ? freq.map(elem => elem / sum) : freq
 
         var EngFreq = ['0.0812','0.01492','0.02782','0.04253','0.12702','0.02228','0.02015','0.06094','0.06966','0.00153','0.00772','0.04025','0.02406','0.06749','0.07507','0.01929','0.00095','0.05987','0.06327','0.09056','0.02758','0.00978','0.02360','0.00150','0.01974','0.00074']
         
@@ -41,7 +25,7 @@
                 labels: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
                 datasets: [{
                     label: 'frequency',
-                    data: percentageArray,
+                    data: percentages,
                     backgroundColor: [
                         'rgba(227, 38, 28, 0.3)',
                         'rgba(227, 65, 28, 0.3)',
