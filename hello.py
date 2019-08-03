@@ -6,6 +6,8 @@ app = Flask(__name__)
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+################################## ROT 13 Decrtpy ######################################
+
 def dec_rot13(string):
 
     upper_num = [ord(c) for c in string.upper()]
@@ -54,6 +56,8 @@ def dec_ceaser(string):
     res = "".join(seb)
 
     return(res)
+
+#####################################  END ROT 13 Decrypt ###########################
 
 ###################################### VIGNERE ######################################
 
@@ -242,10 +246,11 @@ def frequency_list_generate(string):
          
     return(freq)
 
-#IC(text, ncol)
+#IC(text, ncol) inside vignere
 
 ####################################  Cryptanalysis end ##################################
 
+####################################  Routing section   ##################################
 
 @app.route('/')
 def index():
@@ -332,3 +337,6 @@ def cryptanalysis():
         C_text = scrub_string(request.form['C_text'])
         return render_template('cryptanalysis.html', Frequency = frequency_list_generate(C_text), IOC = str(IC(C_text,1)))
     return render_template('cryptanalysis.html', Frequency = '')
+
+
+####################################### Route End ##################################
