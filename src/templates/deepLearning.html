@@ -48,15 +48,18 @@
 
       .container {
         margin-top: 75px;
-        padding-left: 16px;
-        padding-right: 16px;
         max-width: 100%;
-        overflow-x: hidden;
+        position: absolute;
+        top: 0;
+        color: white;
+        left: 10%;
       }
 
       textarea {
         width: 100%;
         height: 200px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #33c3f0;
         resize: none;
       }
 
@@ -94,7 +97,6 @@
         z-index: 9999;
         height: 60px;
         display: flex;
-        flex-direction: row;
         align-items: center;
         justify-content: flex-end
       }
@@ -114,8 +116,8 @@
     </style>
   </head>
   <body>
-    <div class="particle-canvas" id="particle-canvas"></div>
-    <script src="{{url_for('static', filename='canvas.js')}}"></script>
+        <div id="particle-canvas"></div>
+        <script src="{{url_for('static', filename='canvas.js')}}"></script>
     <div class="wrapper">
       <header class="topnav">
         <a class="active" href="/">Home</a>
@@ -127,7 +129,7 @@
         <a href="/keylessdecryption">Keyless Decryption</a>
       </header>
       
-      <div class="container">
+          <div class="container" >
                   <h1>Deep Learning Decryption</h1>
                   <form method="post">
                     <p>
@@ -137,17 +139,17 @@
                       sed metus. Nullam id nisi magna. Duis ac enim vitae elit facilisis interdum.
                       Mauris hendrerit blandit nibh. Praesent.
                     </p>
-                    <textarea name="C_text" placeholder="Enter text here..."></textarea>
+                    <textarea name="C_text" placeholder="Enter text here..." spellcheck="false"></textarea>
                     <button
                       class="button-primary"
-                      style="float: right; margin-bottom: 17.5px"
+                      style="float: right; margin-bottom: 17.5px; background-color: #33c4f083"
                       value="Decrypt"
                     >
                       Decrypt
                     </button>
                   </form>
                   
-                  <textarea placeholder="Decrypted text will appear here...">{{
+                  <textarea placeholder="Decrypted text will appear here..." readonly>{{
                     Cipher_text
                   }}</textarea>
       </div>
@@ -163,7 +165,6 @@
       </footer>     
       </div>
     </div>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   </body>
 </html>

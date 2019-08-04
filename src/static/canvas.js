@@ -66,7 +66,7 @@
           left: 0,
           bottom: 0,
           right: 0,
-          "z-index": 1
+          "z-index": -1
         }),
         /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(this.options.background))
       )
@@ -99,7 +99,7 @@
         (this.canvas.width = this.i.size.width),
         (this.canvas.height = this.i.size.height),
         this.l(this.i, { position: "relative" }),
-        this.l(this.canvas, { "z-index": "20", position: "relative" }),
+        this.l(this.canvas, { "z-index": "0", position: "relative" }),
         window.addEventListener(
           "resize",
           function() {
