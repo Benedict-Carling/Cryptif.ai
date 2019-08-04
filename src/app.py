@@ -79,6 +79,10 @@ def encryption():
 def decryption():
     return render_template('decryption.html')
 
+@app.route('/keylessdecryption', methods=['GET', 'POST'])
+def keylessdecryption():
+    return render_template('keylessdecryption.html')
+
 #############################   Encryption       ########################################
 
 @app.route('/ENC_Caeser', methods=['GET', 'POST'])
