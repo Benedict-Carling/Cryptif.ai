@@ -2,11 +2,14 @@
 
 <h1>Format your Cipher Text</h1>
 <p>
-  Format your Cipher Text here before decryption, remove white space, remove
-  punctional, shift all lettters to lower case
+  Format your Cipher Text here before decryption using the following methods
 </p>
 <form method="post">
-  <textarea type="text" name="C_text"></textarea>
+  <textarea
+    type="text"
+    name="C_text"
+    placeholder="Enter text here..."
+  ></textarea>
   <div style="float: right; margin-bottom: 7.5px">
     <button name="format" type="submit" value="LowerCase">Lower Case</button>
     <button name="format" type="submit" value="RemoveSpaces">
@@ -26,5 +29,7 @@
   </div>
 </form>
 
-<textarea>{{ Cipher_text }}</textarea>
+<textarea placeholder="Formatted text will appear here...">{{
+  Cipher_text
+}}</textarea>
 {% endblock content %}
