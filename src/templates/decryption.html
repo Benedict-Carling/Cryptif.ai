@@ -1,3 +1,4 @@
+
 {% extends "index.html" %}
 {% block content %}
     <h1>Decryption Home</h1>
@@ -8,73 +9,81 @@
                 <h3>ROT13</h3>
                 <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
                 <div align="right">
-                    <a class="button button-primary" href="/rot13">Decyrpt</a>
+                    <a class="button button-primary" href="/DEC_Rot13">Decyrpt</a>
                 </div>
             </div>
             <p></p>
                 <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
-                    <h3>ROT13</h3>
-                    <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
+                    <h3>Caeser</h3>
+                    <p>monoalphabetic cipher that rotates every character input around the alphabet by a number of magnitude between 0 and 25 because there are only 25 encryption possibilities this cipher is very suseptible to brute force attacks</p>
                     <div align="right">
-                        <a class="button button-primary" href="/rot13">Decyrpt</a>
+                        <a class="button button-primary" href="/DEC_Caeser">Decyrpt</a>
                     </div>
                 </div>
             <p></p>
                 <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
-                    <h3>ROT13</h3>
-                    <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
+                    <h3>Atbash</h3>
+                    <p>monoalphabetic cipher that output the reverse text for example A = Z, B = Y, C =X</p>
                     <div align="right">
-                        <a class="button button-primary" href="/rot13">Decyrpt</a>
+                        <a class="button button-primary" href="/DEC_Atbash">Decyrpt</a>
+                    </div>
+                </div>
+            <p></p>
+            <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
+                    <h3>Affine</h3>
+                    <p>monoalphabetic cipher that is more complex with a modulus function and two keys</p>
+                    <div align="right">
+                        <a class="button button-primary" href="/DEC_Affine">Decyrpt</a>
                     </div>
                 </div>
             <p></p>
         <h1 style=" border-left: 8px solid rgb(97, 32, 172);background-color: rgb(233, 233, 233);">Polyalphabetic Ciphers</h1>
             <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
-                <h3>ROT13</h3>
-                <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
+                <h3>Vignere</h3>
+                <p>monoalphabetic cipher similar to a ceaser yet it increments inteselt across each letter of the input key word</p>
                 <div align="right">
-                    <a class="button button-primary" href="/rot13">Decyrpt</a>
+                    <a class="button button-primary" href="/DEC_Vigenere">Decyrpt</a>
                 </div>
             </div>
             <p></p>
                 <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
-                    <h3>ROT13</h3>
-                    <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
+                    <h3>Beaufort</h3>
+                    <p>monoalphabetic cipher that is similar to Vignere</p>
                     <div align="right">
-                        <a class="button button-primary" href="/rot13">Decyrpt</a>
+                        <a class="button button-primary" href="/DEC_Beaufort">Decyrpt</a>
                     </div>
                 </div>
             <p></p>
                 <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
-                    <h3>ROT13</h3>
-                    <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
+                    <h3>Autokey</h3>
+                    <p>monoalphabetic cipher that uses a matrix as a key word</p>
                     <div align="right">
-                        <a class="button button-primary" href="/rot13">Decyrpt</a>
+                        <a class="button button-primary" href="/DEC_Autokey">Decyrpt</a>
                     </div>
                 </div>
             <p></p>
         <h1 style=" border-left: 8px solid rgb(177, 27, 169);background-color: rgb(233, 233, 233);">Transpositional Ciphers</h1>
             <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
-                <h3>ROT13</h3>
-                <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
+                <h3>Columnar Transpositional</h3>
+                <p>Transpositional cipher that changes the order but not the characters of the text</p>
                 <div align="right">
-                    <a class="button button-primary" href="/rot13">Decyrpt</a>
+                    <a class="button button-primary" href="/DEC_Coltrans">Decyrpt</a>
                 </div>
             </div>
             <p></p>
                 <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
-                    <h3>ROT13</h3>
-                    <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
+                    <h3>Bifid</h3>
+                    <p>monoalphabetic cipher involves matrix multiplication</p>
                     <div align="right">
-                        <a class="button button-primary" href="/rot13">Decyrpt</a>
+                        <a class="button button-primary" href="/DEC_Bifid">Decyrpt</a>
                     </div>
                 </div>
             <p></p>
                 <div style="border: 3px solid rgb(233, 233, 233); border-radius: 5px;">
-                    <h3>ROT13</h3>
+                    <h3>Porta</h3>
                     <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
                     <div align="right">
-                        <a class="button button-primary" href="/rot13">Decyrpt</a>
+                        <a class="button button-primary" href="/DEC_Porta">Decyrpt</a>
                     </div>
                 </div>
             <p></p>

@@ -165,6 +165,101 @@ def ENC_Porta():
         return render_template('ENC_Porta.html', Cipher_text = PORTA_Enc(plaintext,Key_phrase))
     return render_template('ENC_Porta.html')
 
+@app.route('/ENC_ADFGX', methods=['GET', 'POST'])
+def ENC_ADFGX():
+    if request.method == 'POST':
+        plaintext = request.form['C_text']
+        key_matrix = str(request.form['key_matrix'])
+        key_word = str(request.form['key_word'])
+        return render_template('ENC_ADFGX.html', Cipher_text = BIFID_Enc(plaintext,key_matrix,key_word))
+    return render_template('ENC_ADFGX.html')
+
+#############################  END OF ENCRYPTION ########################################
+
+#############################  START OF DECRYPTION  #####################################
+
+@app.route('/DEC_Caeser', methods=['GET', 'POST'])
+def DEC_Caeser():
+    if request.method == 'POST':
+        plaintext = request.form['C_text']
+        Key_number = int(request.form['Key_number'])
+        return render_template('DEC_Caeser.html', Cipher_text = Caesar_Dec(plaintext,Key_number))
+    return render_template('DEC_Caeser.html')
+
+@app.route('/DEC_Rot13', methods=['GET', 'POST'])
+def DEC_Rot13():
+    if request.method == 'POST':
+        C_text = request.form['C_text']
+        return render_template('DEC_Rot13.html', Cipher_text = dec_rot13(C_text))
+    return render_template('DEC_Rot13.html')
+
+@app.route('/DEC_Atbash', methods=['GET', 'POST'])
+def DEC_Atbash():
+    if request.method == 'POST':
+        C_text = request.form['C_text']
+        return render_template('DEC_Atbash.html', Cipher_text = ATBASH_Enc_Dec(C_text))
+    return render_template('DEC_Atbash.html')
+
+@app.route('/DEC_Affine', methods=['GET', 'POST'])
+def DEC_Affine():
+    if request.method == 'POST':
+        C_text = request.form['C_text']
+        key1 =  int(request.form['key1'])
+        key2 =  int(request.form['key2'])
+        return render_template('DEC_Affine.html', Cipher_text = AFFINE_Dec(C_text,key1,key2))
+    return render_template('DEC_Affine.html')
+
+@app.route('/DEC_Vigenere', methods=['GET', 'POST'])
+def DEC_Vigenere():
+    if request.method == 'POST':
+        plaintext = request.form['C_text']
+        Key_phrase = request.form['Key_phrase']
+        return render_template('DEC_Vigenere.html', Cipher_text = VIGENERE_Dec(plaintext,Key_phrase))
+    return render_template('DEC_Vigenere.html')
+
+@app.route('/DEC_Autokey', methods=['GET', 'POST'])
+def DEC_Autokey():
+    if request.method == 'POST':
+        plaintext = request.form['C_text']
+        Key_phrase = request.form['Key_phrase']
+        return render_template('DEC_Autokey.html', Cipher_text = AUTOKEY_Dec(plaintext,Key_phrase))
+    return render_template('DEC_Autokey.html')
+
+@app.route('/DEC_Beaufort', methods=['GET', 'POST'])
+def DEC_Beaufort():
+    if request.method == 'POST':
+        plaintext = request.form['C_text']
+        Key_phrase = request.form['Key_phrase']
+        return render_template('DEC_Beaufort.html', Cipher_text = BEAUFORT_Dec(plaintext,Key_phrase))
+    return render_template('DEC_Beaufort.html')
+
+@app.route('/DEC_Coltrans', methods=['GET', 'POST'])
+def DEC_Coltrans():
+    if request.method == 'POST':
+        plaintext = request.form['C_text']
+        Key_phrase = request.form['Key_phrase']
+        return render_template('ENC_Coltrans.html', Cipher_text = COLTRANS_Dec(plaintext,Key_phrase))
+    return render_template('DEC_Coltrans.html')
+
+@app.route('/DEC_Bifid', methods=['GET', 'POST'])
+def DEC_Bifid():
+    if request.method == 'POST':
+        plaintext = request.form['C_text']
+        key_matrix = str(request.form['key_matrix'])
+        key_integer = int(request.form['key_integer'])
+        return render_template('DEC_Bifid.html', Cipher_text = BIFID_Dec(plaintext,key_matrix,key_integer))
+    return render_template('DEC_Bifid.html')
+
+@app.route('/DEC_Porta', methods=['GET', 'POST'])
+def DEC_Porta():
+    if request.method == 'POST':
+        plaintext = request.form['C_text']
+        Key_phrase = request.form['Key_phrase']
+        return render_template('DEC_Porta.html', Cipher_text = PORTA_Dec(plaintext,Key_phrase))
+    return render_template('DEC_Porta.html')
+
+############################ END OF DECRYPTION  ########################################
+
 
 
 
