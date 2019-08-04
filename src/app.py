@@ -67,15 +67,15 @@ def cryptanalysis():
     return render_template('cryptanalysis.html', Frequency = frequency_list_generate(''))
 
 @app.route('/deepLearning', methods=['GET', 'POST'])
-def DeepLearning():
+def deepLearning():
     return render_template('deepLearning.html')
 
 @app.route('/encryption', methods=['GET', 'POST'])
-def Encryption():
+def encryption():
     return render_template('encryption.html', )
 
 @app.route('/decryption', methods=['GET', 'POST'])
-def Decryption():
+def decryption():
     return render_template('decryption.html')
 
 #############################   End of Routing   ########################################
