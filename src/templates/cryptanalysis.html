@@ -1,214 +1,273 @@
-{% extends "index.html" %}
-{% block content %}
-    <h1>Cryptanalysis</h1>
-    <div>Here you can find hidden information in your cipher text which reveals which classical cipher it has been encrypted with.</div>
-    <div>The frequency distribution and Index of coincidence can reveal language and the encryption algorithm used.</div>
-    <form method="post">
-        <textarea name=C_text></textarea> 
-        <input type=submit value=Decrypt>
-    </form>
-    <canvas id="myChart" width="950" height="200"></canvas>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-
-    <script>
-        const freq = '{{Frequency}}'.slice(1,-1).split(', ')
-        const sum = freq.reduce((acc, elem) => acc + parseFloat(elem), 0)
-        const percentages =  sum ? freq.map(elem => elem / sum) : freq
-
-        var EngFreq = ['0.0812','0.01492','0.02782','0.04253','0.12702','0.02228','0.02015','0.06094','0.06966','0.00153','0.00772','0.04025','0.02406','0.06749','0.07507','0.01929','0.00095','0.05987','0.06327','0.09056','0.02758','0.00978','0.02360','0.00150','0.01974','0.00074']
-        
-        var ctx = document.getElementById('myChart');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
-                datasets: [{
-                    label: 'frequency',
-                    data: percentages,
-                    backgroundColor: [
-                        'rgba(227, 38, 28, 0.3)',
-                        'rgba(227, 65, 28, 0.3)',
-                        'rgba(227, 84, 28, 0.3)',
-                        'rgba(227, 104, 28, 0.3)',
-                        'rgba(227, 121, 28, 0.3)',
-                        'rgba(227, 151, 28, 0.3)',
-                        'rgba(227, 197, 28, 0.3)',
-                        'rgba(220, 227, 28, 0.3)',
-                        'rgba(190, 227, 28, 0.3)',
-                        'rgba(161, 227, 28, 0.3)',
-                        'rgba(128, 227, 28, 0.3)',
-                        'rgba(51, 227, 28, 0.3)',
-                        'rgba(28, 227, 78, 0.3)',
-                        'rgba(28, 227, 128, 0.3)',
-                        'rgba(28, 227, 157, 0.3)',
-                        'rgba(28, 227, 200, 0.3)',
-                        'rgba(28, 214, 227, 0.3)',
-                        'rgba(28, 141, 227, 0.3)',
-                        'rgba(28, 104, 227, 0.3)',
-                        'rgba(28, 65, 227, 0.3)',
-                        'rgba(108, 28, 227, 0.3)',
-                        'rgba(144, 28, 227, 0.3)',
-                        'rgba(200, 28, 227, 0.3)',
-                        'rgba(227, 28, 210, 0.3)',
-                        'rgba(227, 28, 111, 0.3)',
-                        'rgba(227, 28, 38, 0.3)',
-
-                    ],
-                    borderColor: [
-                    'rgba(227, 38, 28, 1)',
-                        'rgba(227, 65, 28, 1)',
-                        'rgba(227, 84, 28, 1)',
-                        'rgba(227, 104, 28, 1)',
-                        'rgba(227, 121, 28, 1)',
-                        'rgba(227, 151, 28, 1)',
-                        'rgba(227, 197, 28, 1)',
-                        'rgba(220, 227, 28, 1)',
-                        'rgba(190, 227, 28, 1)',
-                        'rgba(161, 227, 28, 1)',
-                        'rgba(128, 227, 28, 1)',
-                        'rgba(51, 227, 28, 1)',
-                        'rgba(28, 227, 78, 1)',
-                        'rgba(28, 227, 128, 1)',
-                        'rgba(28, 227, 157, 1)',
-                        'rgba(28, 227, 200, 1)',
-                        'rgba(28, 214, 227, 1)',
-                        'rgba(28, 141, 227, 1)',
-                        'rgba(28, 104, 227, 1)',
-                        'rgba(28, 65, 227, 1)',
-                        'rgba(108, 28, 227, 1)',
-                        'rgba(144, 28, 227, 1)',
-                        'rgba(200, 28, 227, 1)',
-                        'rgba(227, 28, 210, 1)',
-                        'rgba(227, 28, 111, 1)',
-                        'rgba(227, 28, 38, 1)',
-                    ],
-                    borderWidth: 1
-                },
-                {
-                    label: 'English Language Frequencies',
-                    data: EngFreq,
-                    backgroundColor: [
-                        'rgba(227, 38, 28, 0.3)',
-                        'rgba(227, 65, 28, 0.3)',
-                        'rgba(227, 84, 28, 0.3)',
-                        'rgba(227, 104, 28, 0.3)',
-                        'rgba(227, 121, 28, 0.3)',
-                        'rgba(227, 151, 28, 0.3)',
-                        'rgba(227, 197, 28, 0.3)',
-                        'rgba(220, 227, 28, 0.3)',
-                        'rgba(190, 227, 28, 0.3)',
-                        'rgba(161, 227, 28, 0.3)',
-                        'rgba(128, 227, 28, 0.3)',
-                        'rgba(51, 227, 28, 0.3)',
-                        'rgba(28, 227, 78, 0.3)',
-                        'rgba(28, 227, 128, 0.3)',
-                        'rgba(28, 227, 157, 0.3)',
-                        'rgba(28, 227, 200, 0.3)',
-                        'rgba(28, 214, 227, 0.3)',
-                        'rgba(28, 141, 227, 0.3)',
-                        'rgba(28, 104, 227, 0.3)',
-                        'rgba(28, 65, 227, 0.3)',
-                        'rgba(108, 28, 227, 0.3)',
-                        'rgba(144, 28, 227, 0.3)',
-                        'rgba(200, 28, 227, 0.3)',
-                        'rgba(227, 28, 210, 0.3)',
-                        'rgba(227, 28, 111, 0.3)',
-                        'rgba(227, 28, 38, 0.3)',
-
-                    ],
-                    borderColor: [
-                    'rgba(227, 38, 28, 1)',
-                        'rgba(227, 65, 28, 1)',
-                        'rgba(227, 84, 28, 1)',
-                        'rgba(227, 104, 28, 1)',
-                        'rgba(227, 121, 28, 1)',
-                        'rgba(227, 151, 28, 1)',
-                        'rgba(227, 197, 28, 1)',
-                        'rgba(220, 227, 28, 1)',
-                        'rgba(190, 227, 28, 1)',
-                        'rgba(161, 227, 28, 1)',
-                        'rgba(128, 227, 28, 1)',
-                        'rgba(51, 227, 28, 1)',
-                        'rgba(28, 227, 78, 1)',
-                        'rgba(28, 227, 128, 1)',
-                        'rgba(28, 227, 157, 1)',
-                        'rgba(28, 227, 200, 1)',
-                        'rgba(28, 214, 227, 1)',
-                        'rgba(28, 141, 227, 1)',
-                        'rgba(28, 104, 227, 1)',
-                        'rgba(28, 65, 227, 1)',
-                        'rgba(108, 28, 227, 1)',
-                        'rgba(144, 28, 227, 1)',
-                        'rgba(200, 28, 227, 1)',
-                        'rgba(227, 28, 210, 1)',
-                        'rgba(227, 28, 111, 1)',
-                        'rgba(227, 28, 38, 1)',
-                    ],
-                    borderWidth: 1
-                }
-            ]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
-
-<h1>Index of Coindidence Analysis</h1>
-
-<canvas id="myChart2" width="950" height="200"></canvas>
+{% extends "index.html" %} {% block content %}
+<h1>Cryptanalysis</h1>
+<div>
+  Here you can find hidden information in your cipher text which reveals which
+  classical cipher it has been encrypted with.
+</div>
+<div>
+  The frequency distribution and Index of coincidence can reveal language and
+  the encryption algorithm used.
+</div>
+<form method="post" style="margin-bottom: 65px">
+  <textarea name="C_text"></textarea>
+  <input style="float: right" type="submit" value="Decrypt" />
+</form>
+<h1>Character Frequency Analysis</h1>
+<canvas
+  id="myChart"
+  width="950"
+  height="200"
+  style="margin-bottom: 25px"
+></canvas>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
 
 <script>
-    
-    var ctx = document.getElementById('myChart2');
-    var myChart2 = new Chart(ctx, {
-            type: 'horizontalBar',
-            data: {
-                labels: ["CipherText", "English Language", "French Language", "Polyalphabetic"],
-                datasets: [{
-                    label: 'Index Of Coincidence',
-                    data: ["{{IOC}}","1.7","1.2","0.8"],
-                    backgroundColor: [
-                        'rgba(2, 0, 47, 0.3)',
-                        'rgba(2, 0, 77, 0.3)',
-                        'rgba(2, 0, 100, 0.3)',
-                        'rgba(2, 0, 130, 0.3)',
+  const freq = "{{Frequency}}".slice(1, -1).split(", ");
+  const sum = freq.reduce((acc, elem) => acc + parseFloat(elem), 0);
+  const percentages = sum ? freq.map(elem => elem / sum) : freq;
 
-                    ],
-                    borderColor: [
-                        'rgba(2, 0, 47, 1)',
-                        'rgba(2, 0, 77, 1)',
-                        'rgba(2, 0, 100, 1)',
-                        'rgba(2, 0, 130, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
+  var EngFreq = [
+    "0.0812",
+    "0.01492",
+    "0.02782",
+    "0.04253",
+    "0.12702",
+    "0.02228",
+    "0.02015",
+    "0.06094",
+    "0.06966",
+    "0.00153",
+    "0.00772",
+    "0.04025",
+    "0.02406",
+    "0.06749",
+    "0.07507",
+    "0.01929",
+    "0.00095",
+    "0.05987",
+    "0.06327",
+    "0.09056",
+    "0.02758",
+    "0.00978",
+    "0.02360",
+    "0.00150",
+    "0.01974",
+    "0.00074"
+  ];
+
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z"
+      ],
+      datasets: [
+        {
+          label: "Cipher Character Frequencies",
+          data: percentages,
+          backgroundColor: [
+            "rgba(227, 38, 28, 0.3)",
+            "rgba(227, 65, 28, 0.3)",
+            "rgba(227, 84, 28, 0.3)",
+            "rgba(227, 104, 28, 0.3)",
+            "rgba(227, 121, 28, 0.3)",
+            "rgba(227, 151, 28, 0.3)",
+            "rgba(227, 197, 28, 0.3)",
+            "rgba(220, 227, 28, 0.3)",
+            "rgba(190, 227, 28, 0.3)",
+            "rgba(161, 227, 28, 0.3)",
+            "rgba(128, 227, 28, 0.3)",
+            "rgba(51, 227, 28, 0.3)",
+            "rgba(28, 227, 78, 0.3)",
+            "rgba(28, 227, 128, 0.3)",
+            "rgba(28, 227, 157, 0.3)",
+            "rgba(28, 227, 200, 0.3)",
+            "rgba(28, 214, 227, 0.3)",
+            "rgba(28, 141, 227, 0.3)",
+            "rgba(28, 104, 227, 0.3)",
+            "rgba(28, 65, 227, 0.3)",
+            "rgba(108, 28, 227, 0.3)",
+            "rgba(144, 28, 227, 0.3)",
+            "rgba(200, 28, 227, 0.3)",
+            "rgba(227, 28, 210, 0.3)",
+            "rgba(227, 28, 111, 0.3)",
+            "rgba(227, 28, 38, 0.3)"
+          ],
+          borderColor: [
+            "rgba(227, 38, 28, 1)",
+            "rgba(227, 65, 28, 1)",
+            "rgba(227, 84, 28, 1)",
+            "rgba(227, 104, 28, 1)",
+            "rgba(227, 121, 28, 1)",
+            "rgba(227, 151, 28, 1)",
+            "rgba(227, 197, 28, 1)",
+            "rgba(220, 227, 28, 1)",
+            "rgba(190, 227, 28, 1)",
+            "rgba(161, 227, 28, 1)",
+            "rgba(128, 227, 28, 1)",
+            "rgba(51, 227, 28, 1)",
+            "rgba(28, 227, 78, 1)",
+            "rgba(28, 227, 128, 1)",
+            "rgba(28, 227, 157, 1)",
+            "rgba(28, 227, 200, 1)",
+            "rgba(28, 214, 227, 1)",
+            "rgba(28, 141, 227, 1)",
+            "rgba(28, 104, 227, 1)",
+            "rgba(28, 65, 227, 1)",
+            "rgba(108, 28, 227, 1)",
+            "rgba(144, 28, 227, 1)",
+            "rgba(200, 28, 227, 1)",
+            "rgba(227, 28, 210, 1)",
+            "rgba(227, 28, 111, 1)",
+            "rgba(227, 28, 38, 1)"
+          ],
+          borderWidth: 1
+        },
+        {
+          label: "English Language Frequencies",
+          data: EngFreq,
+          backgroundColor: [
+            "rgba(227, 38, 28, 0.3)",
+            "rgba(227, 65, 28, 0.3)",
+            "rgba(227, 84, 28, 0.3)",
+            "rgba(227, 104, 28, 0.3)",
+            "rgba(227, 121, 28, 0.3)",
+            "rgba(227, 151, 28, 0.3)",
+            "rgba(227, 197, 28, 0.3)",
+            "rgba(220, 227, 28, 0.3)",
+            "rgba(190, 227, 28, 0.3)",
+            "rgba(161, 227, 28, 0.3)",
+            "rgba(128, 227, 28, 0.3)",
+            "rgba(51, 227, 28, 0.3)",
+            "rgba(28, 227, 78, 0.3)",
+            "rgba(28, 227, 128, 0.3)",
+            "rgba(28, 227, 157, 0.3)",
+            "rgba(28, 227, 200, 0.3)",
+            "rgba(28, 214, 227, 0.3)",
+            "rgba(28, 141, 227, 0.3)",
+            "rgba(28, 104, 227, 0.3)",
+            "rgba(28, 65, 227, 0.3)",
+            "rgba(108, 28, 227, 0.3)",
+            "rgba(144, 28, 227, 0.3)",
+            "rgba(200, 28, 227, 0.3)",
+            "rgba(227, 28, 210, 0.3)",
+            "rgba(227, 28, 111, 0.3)",
+            "rgba(227, 28, 38, 0.3)"
+          ],
+          borderColor: [
+            "rgba(227, 38, 28, 1)",
+            "rgba(227, 65, 28, 1)",
+            "rgba(227, 84, 28, 1)",
+            "rgba(227, 104, 28, 1)",
+            "rgba(227, 121, 28, 1)",
+            "rgba(227, 151, 28, 1)",
+            "rgba(227, 197, 28, 1)",
+            "rgba(220, 227, 28, 1)",
+            "rgba(190, 227, 28, 1)",
+            "rgba(161, 227, 28, 1)",
+            "rgba(128, 227, 28, 1)",
+            "rgba(51, 227, 28, 1)",
+            "rgba(28, 227, 78, 1)",
+            "rgba(28, 227, 128, 1)",
+            "rgba(28, 227, 157, 1)",
+            "rgba(28, 227, 200, 1)",
+            "rgba(28, 214, 227, 1)",
+            "rgba(28, 141, 227, 1)",
+            "rgba(28, 104, 227, 1)",
+            "rgba(28, 65, 227, 1)",
+            "rgba(108, 28, 227, 1)",
+            "rgba(144, 28, 227, 1)",
+            "rgba(200, 28, 227, 1)",
+            "rgba(227, 28, 210, 1)",
+            "rgba(227, 28, 111, 1)",
+            "rgba(227, 28, 38, 1)"
+          ],
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
             }
-        });
-    </script>
+          }
+        ]
+      }
+    }
+  });
+</script>
 
-    <form method="post">
-        <output type=text name=C_text>
-    </form>
+<h1>Index of Coindidence Analysis</h1>
+<canvas
+  id="myChart2"
+  width="950"
+  height="200"
+  style="margin-bottom: 25px"
+></canvas>
 
-    <p style="padding-top: 10px">IOC of Cipher Text:   {{IOC}}</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
 
+<script>
+  var ctx = document.getElementById("myChart2");
+  var myChart2 = new Chart(ctx, {
+    type: "horizontalBar",
+    data: {
+      labels: [
+        "CipherText",
+        "English Language",
+        "French Language",
+        "Polyalphabetic"
+      ],
+      datasets: [
+        {
+          label: "Index Of Coincidence",
+          data: ["{{IOC}}", "1.7", "1.2", "0.8"],
+          backgroundColor: [
+            "rgba(2, 0, 47, 0.3)",
+            "rgba(2, 0, 77, 0.3)",
+            "rgba(2, 0, 100, 0.3)",
+            "rgba(2, 0, 130, 0.3)"
+          ],
+          borderColor: [
+            "rgba(2, 0, 47, 1)",
+            "rgba(2, 0, 77, 1)",
+            "rgba(2, 0, 100, 1)",
+            "rgba(2, 0, 130, 1)"
+          ],
+          borderWidth: 1
+        }
+      ]
+    }
+  });
+</script>
 {% endblock content %}
