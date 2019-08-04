@@ -1,5 +1,5 @@
 # Local compilation code
-*.pyc
+src/*.pyc
 
 # Editor directories and files
 .vscode
