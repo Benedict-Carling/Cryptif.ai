@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% block content %}
+    <h1>Decryption Home</h1>
+    <h2>Click the Cipher type to obtain your Plain Text</h2>
+    <body>
+        <h1 href="/rot13">ROT13</h1>
+        <p>monoalphabetic cipher that rotates 13 places along alphabet</p>
+        <h1 href="/ceaser">Ceaser</h1>
+        <p>monoalphabet cipher of key between 0-26</p>
+        <h1 href="/vignere">Vignere</h1>
+        <p>polyalphabetic cipher of keword and lenght anf characters</p>
+    </body>
+{% endblock content %}
+
+Decryption_techniques = [
+    {
+        'CipherType':'ROT13',
+        'Description':'monoalphabetic cipher that rotates 13 places along alphabet',
+        'Difficulty':'Easy'
+    },
+        {
+        'CipherType':'Ceaser',
+        'Description':'monoalphabet cipher of key between 0-26',
+        'Difficulty':'Easy'
+    },
+        {
+        'CipherType':'ROT13',
+        'Description':'polyalphabetic cipher of keword and lenght anf characters',
+        'Difficulty':'Hard'
+    }
+]

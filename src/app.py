@@ -1,13 +1,18 @@
 from flask import Flask, session, redirect, url_for, escape, request, render_template
 import string
-from DecryptionFunctions import * 
+from DecryptionFunctions import *
 
 app = Flask(__name__)
 
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-####################################   Routing   ####################################
+#############################   ALL DECRYPTION VARIABLES #################################
+
+
+#############################   ALL DECRYPTION VARIABLE END ##############################
+
+#############################   Routing   ################################################
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -61,4 +66,16 @@ def cryptanalysis():
         return render_template('cryptanalysis.html', Frequency = frequency_list_generate(C_text), IOC = str(IC(C_text,1)))
     return render_template('cryptanalysis.html', Frequency = frequency_list_generate(''))
 
-####################################   End of Routing   ####################################
+@app.route('/deepLearning', methods=['GET', 'POST'])
+def deepLearning():
+    return render_template('deepLearning.html')
+
+@app.route('/encryption', methods=['GET', 'POST'])
+def encryption():
+    return render_template('encryption.html', )
+
+@app.route('/decryption', methods=['GET', 'POST'])
+def decryption():
+    return render_template('decryption.html')
+
+#############################   End of Routing   ########################################
