@@ -76,7 +76,7 @@ MAX_LEN = 10    #Maximum keyword length
 
 def scrub_string(str):
     """Remove non-alphabetic characters and convert string to lower case. """
-    return ''.join(ch for ch in str if ch.isalpha()).lower()
+    return ''.join(ch for ch in str if ch.isalpha() or ch.isdigit()).lower()
 
 
 def string_to_numbers(str):

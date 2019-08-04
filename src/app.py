@@ -45,7 +45,7 @@ def rot13():
 @app.route('/format', methods=['GET', 'POST'])
 def format():
     if request.method == 'POST':
-        method = request.form['method']
+        method = request.form['format']
         C_text = request.form['C_text']
         if method == 'LowerCase':
             return render_template('format.html', Cipher_text = C_text.lower())
@@ -53,7 +53,7 @@ def format():
             return render_template('format.html', Cipher_text = C_text.replace(" ", ""))
         if method == 'RemovePunctuation':
             return render_template('format.html', Cipher_text = C_text.translate(str.maketrans('', '', string.punctuation)))
-        if method == 'CompleteFormatt':
+        if method == 'CompleteFormat':
             return render_template('format.html', Cipher_text = scrub_string(C_text))
         
         return render_template('format.html', Cipher_text = dec_rot13(C_text))
