@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block content %}
+    <h1>Bifid Cipher Encryption</h1>
+    <p>Copy and Paste your decrypted cipher text below and click decrypt to return the hidden plain text</p>
+    <form method="post">
+        <textarea name=C_text></textarea>
+        <p>Affine shift are encrypted with a key matrix a 5x5 grid of every letter excluding j and a single interger key</p>
+        <div class="row">
+                <div class="six columns">
+                  <label for="key_matrix">Key Matrix:</label>
+                  <input name=key_matrix class="u-full-width" type="string" placeholder="3">
+                </div>
+                <div class="six columns">
+                    <label for="key_integer">Key Integer: </label>
+                    <input name=key_integer class="u-full-width" type="integer" placeholder="qwertyuioplkhgfdsazxcvbnm">      
+                </div>
+              </div>
+
+            <div>
+                <input type=submit value=Encrypt> 
+            </div>
+    </form>
+
+    <textarea>{{Cipher_text}}</textarea>
+
+    <form method="post">
+        <output type=text name=C_text>
+    </form>
+{% endblock content %}

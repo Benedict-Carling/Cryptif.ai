@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block content %}
+    <h1>Beaufort Encryption</h1>
+    <p>Copy and Paste your decrypted cipher text below and click decrypt to return the hidden plain text</p>
+    <form method="post">
+        <textarea name=C_text></textarea>
+        <div class="row">
+            <div class="two columns">
+                <label name=Key_phrase>Your Key phrase:</label>
+            </div>
+            <div class="two columns"></div>
+                <input name=Key_phrase class="u-full-width" type="string" placeholder="benedict" id="Key_phrase">
+            </div>
+            <div>
+                <input type=submit value=Encrypt> 
+            </div>
+    </form>
+
+    <textarea>{{Cipher_text}}</textarea>
+
+    <form method="post">
+        <output type=text name=C_text>
+    </form>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block content %}
+    <h1>Atbash Cipher Encryption</h1>
+    <p>Copy and Paste your decrypted cipher text below and click decrypt to return the hidden plain text</p>
+    <form method="post">
+        <textarea name=C_text></textarea>
+        <p>Affine shift are encrypted with the function plaintext = (cipher text*a + b) modulus 26</p>
+        <div class="row">
+                <div class="six columns">
+                  <label for="key1">Key Integer: A</label>
+                  <input name=key1 class="u-full-width" type="integer" placeholder="3">
+                </div>
+                <div class="six columns">
+                    <label for="key2">Key Integer: B </label>
+                    <input name=key2 class="u-full-width" type="integer" placeholder="4">      
+                </div>
+              </div>
+
+            <div>
+                <input type=submit value=Encrypt> 
+            </div>
+    </form>
+
+    <textarea>{{Cipher_text}}</textarea>
+
+    <form method="post">
+        <output type=text name=C_text>
+    </form>
+{% endblock content %}
