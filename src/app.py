@@ -1,6 +1,6 @@
 from flask import Flask, session, redirect, url_for, escape, request, render_template
 import string
-from DecryptionFunctions import *
+from decryptionFunctions import *
 from ALL_ENCRYPTION import *
 
 app = Flask(__name__)
