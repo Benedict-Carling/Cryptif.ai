@@ -798,12 +798,29 @@ def find_bigrams(string):
   for bigram_unit in all_bigrams:
     initial_bi_diction[bigram_unit]+=1
 
-  return(initial_bi_diction)
+  big_boy_values = list(initial_bi_diction.values())
+  size_data_set = sum(list(big_boy_values))
+  bigram_observed_percentages = []
+  for j in range(len(big_boy_values)):
+    bigram_observed_percentages.append(float(big_boy_values[j])/float(size_data_set))
+
+
+  return(bigram_observed_percentages)
 
 print(find_bigrams('adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz'))
 
+def chi_square_of_bigrams(list):
 
+    diffenece_list = []
+    for j in range(len(list)):
+      diffenece_list.append(((list[j]-bigram_ordered_percentages[j])*(list[j]-bigram_ordered_percentages[j]))/bigram_ordered_percentages[j])
 
+    chi_score = sum(diffenece_list)
+    return(chi_score)
+
+print(chi_square_of_bigrams(find_bigrams('adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz')))
+
+########################################    END OF BiGram chi squared value function ##################
 
     
       
