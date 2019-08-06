@@ -10,7 +10,7 @@
 </div>
 <form method="post" style="margin-bottom: 65px">
   <textarea name="C_text" placeholder="Enter text here..."></textarea>
-  <input style="float: right" type="submit" value="Decrypt" />
+  <input style="float: right" type="submit" value="Analyize Text" />
 </form>
 <h1>Character Frequency Analysis</h1>
 <canvas
@@ -270,4 +270,146 @@
     }
   });
 </script>
+
+<h1>Chi Squared Score for Character Frequency</h1>
+
+<body>
+  <div class="row">
+    <div class="four columns">
+      <div class="circle1">
+        <p>{{ chi_squared_1 }}</p>
+      </div>
+    </div>
+    <div class="eight columns">
+      <h5>
+        The Chi Squared test is a statistical model used to compared the
+        similarity of two data sets
+      </h5>
+      <p>
+        Here the two data sets being analyzed are your input character frequency
+        and known english character frequency
+      </p>
+      <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      $$\sum_{k=1}^{N}{(O[k]-E[k]) \over E[k]}$$
+      <p>
+        Where N is length of the data set, O is the observed data set to the
+        index k, E is the Expected data set to the index k
+      </p>
+    </div>
+  </div>
+</body>
+
+<h1>Bhattacharyya distance for Character Frequency</h1>
+
+<body>
+  <div class="row">
+    <div class="four columns">
+      <div class="circle2">
+        <p>{{ bhat_1 }}</p>
+      </div>
+    </div>
+    <div class="eight columns">
+      <h5>
+        The Bhattacharyya distance is a measure of the similarity magnitude of
+        two probability distributions
+      </h5>
+      <p>
+        Here the two data sets being analyzed are your input character frequency
+        and known english character frequency
+      </p>
+      <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      $$&#x222b;\sqrt{O(x)E(x)}dx$$
+      <p>
+        O is the observed data set to the index k, E is the Expected data set to
+        the index k
+      </p>
+    </div>
+  </div>
+</body>
+
+<h1>Ngram Entropic Comparison with English text scores</h1>
+
+<body>
+  <div class="row">
+    <div class="three columns">
+      <div class="circle3">
+        <p>{{ chi_squared_2 }}</p>
+      </div>
+      <h3 align="center">Bigram</h3>
+      <p>Chi Squared Score</p>
+    </div>
+    <div class="three columns">
+      <div class="circle3">
+        <p>{{ bhat_2 }}</p>
+      </div>
+      <h3 align="center">Bigram</h3>
+      <p>Bhattaryya Score</p>
+    </div>
+    <div class="three columns">
+      <div class="circle3">
+        <p>{{ chi_squared_3 }}</p>
+      </div>
+      <h3 align="center">Trigram</h3>
+      <p>Chi Squared Score</p>
+    </div>
+    <div class="three columns">
+      <div class="circle3">
+        <p>{{ bhat_3 }}</p>
+      </div>
+      <h3 align="center">Trigram</h3>
+      <p>Bhattaryya Score</p>
+    </div>
+  </div>
+</body>
+
+<style>
+  .circle1 {
+    border: 2.5em solid rgb(25, 144, 148);
+    border-radius: 100%;
+    height: 14em;
+    width: 14em;
+    text-align: center;
+  }
+
+  .circle1 p {
+    margin-top: 2em;
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: rgb(25, 144, 148);
+  }
+
+  .circle2 {
+    border: 2.5em solid rgb(97, 32, 172);
+    border-radius: 100%;
+    height: 14em;
+    width: 14em;
+    text-align: center;
+  }
+
+  .circle2 p {
+    margin-top: 2em;
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: rgb(97, 32, 172);
+  }
+
+  .circle3 {
+    border: 2.5em solid rgb(177, 27, 169);
+    border-radius: 100%;
+    height: 10em;
+    width: 10em;
+    text-align: center;
+  }
+
+  .circle3 p {
+    margin-top: 1.5em;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: rgb(177, 27, 169);
+  }
+</style>
+
 {% endblock content %}
