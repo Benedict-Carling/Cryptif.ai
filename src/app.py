@@ -642,16 +642,256 @@ def context_processor():
 @app.route("/keyless/vigenere", methods=["GET", "POST"])
 def KEY_Vigenere():
     if request.method == "POST":
+        method = request.form["format"]
         C_text = request.form["C_text"]
-        kw_len = keyword_length(C_text)
-        kw = find_keyword(C_text, kw_len)
-        Output = crypt(C_text, kw, -1)
-        return render_template(
-            "keyless/vignere.html",
-            Cipher_text=Output,
-            Key_length=str(kw_len),
-            Key_text=correct_keyword(kw),
-        )
+        prob_key_len = probable_key_length(C_text)
+        prob_key_word = 0
+        if method == "LowerCase":
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=1,
+                prob_key_len=prob_key_len,
+            )
+        if method == "key0":
+            Key_number = int(prob_key_len[0])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[0])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key1":
+            Key_number = int(prob_key_len[1])
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[1])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key2":
+            Key_number = int(prob_key_len[2])
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[2])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key3":
+            Key_number = int(prob_key_len[3])
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[3])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key4":
+            Key_number = int(prob_key_len[4])
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[4])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key5":
+            Key_number = int(prob_key_len[5])
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[5])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key6":
+            Key_number = int(prob_key_len[6])
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[6])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key7":
+            Key_number = int(prob_key_len[7])
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[7])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key8":
+            Key_number = int(prob_key_len[8])
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[8])
+            index_variable = 8
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=C_text.lower(),
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+
+        if method == "key00":
+            plaintext = C_text
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[0])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[0])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key10":
+            Key_number = int(prob_key_len[1])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[1])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[1])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key20":
+            Key_number = int(prob_key_len[2])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[2])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[2])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key30":
+            Key_number = int(prob_key_len[3])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[3])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[3])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key40":
+            Key_number = int(prob_key_len[4])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[4])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[4])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key50":
+            Key_number = int(prob_key_len[5])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[5])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[5])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key60":
+            Key_number = int(prob_key_len[6])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[6])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[6])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key70":
+            Key_number = int(prob_key_len[7])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[7])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[7])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+        if method == "key80":
+            Key_number = int(prob_key_len[8])
+            plaintext = C_text
+            Output = Caesar_Dec(plaintext, Key_number)
+            prob_key_word = get_vigenere_keys(C_text,prob_key_len[8])
+            Output = VIGENERE_Dec(plaintext,prob_key_word[8])
+            return render_template(
+                "keyless/vigenere.html",
+                Cipher_text=Output,
+                C_text=C_text,
+                show_results=2,
+                prob_key_len=prob_key_len,
+                prob_key_word=prob_key_word,
+            )
+
+
+        return render_template("keyless/vigenere.html", Cipher_text=dec_rot13(C_text))
     return render_template("keyless/vigenere.html")
 
 

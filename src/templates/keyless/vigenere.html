@@ -1,6 +1,6 @@
 {% extends "index.html" %} {% block content %}
 
-<h1>Keyless Caeser Decryption</h1>
+<h1>Keyless Vigenere Decryption</h1>
 <p>
   Paste your text and click analyse to output the most probable encrypton keys
   before decryption
@@ -21,22 +21,40 @@
     Below is a ordered list of the most probable decryption keys click the
     corresponding button to decrypt
   </h2>
-  <h3>{{ prob_key }}</h3>
+  <h3>{{ prob_key_len }}</h3>
 
   <div style="float: right; margin-bottom: 7.5px">
-    <button name="format" value="key0">Decrypt: {{ prob_key[0] }}</button>
-    <button name="format" value="key1">Decrypt: {{ prob_key[1] }}</button>
-    <button name="format" value="key2">Decrypt: {{ prob_key[2] }}</button>
-    <button name="format" value="key3">Decrypt: {{ prob_key[3] }}</button>
-    <button name="format" value="key4">Decrypt: {{ prob_key[4] }}</button>
-    <button name="format" value="key5">Decrypt: {{ prob_key[5] }}</button>
-    <button name="format" value="key6">Decrypt: {{ prob_key[6] }}</button>
-    <button name="format" value="key7">Decrypt: {{ prob_key[7] }}</button>
-    <button name="format" value="key8">Decrypt: {{ prob_key[8] }}</button>
+    <button name="format" value="key0">Choose: {{ prob_key_len[0] }}</button>
+    <button name="format" value="key1">Choose: {{ prob_key_len[1] }}</button>
+    <button name="format" value="key2">Choose: {{ prob_key_len[2] }}</button>
+    <button name="format" value="key3">Choose: {{ prob_key_len[3] }}</button>
+    <button name="format" value="key4">Choose: {{ prob_key_len[4] }}</button>
+    <button name="format" value="key5">Choose: {{ prob_key_len[5] }}</button>
+    <button name="format" value="key6">Choose: {{ prob_key_len[6] }}</button>
+    <button name="format" value="key7">Choose: {{ prob_key_len[7] }}</button>
+    <button name="format" value="key8">Choose: {{ prob_key_len[8] }}</button>
   </div>
-  {% endif %}
-</form>
+  {% endif %} {% if show_results==2 %}
+  <h1>Most Probable Keys</h1>
+  <h2>
+    Below is a ordered list of the most probable decryption keys click the
+    corresponding button to decrypt
+  </h2>
+  <h3>{{ prob_key_word }}</h3>
 
+  <div style="float: right; margin-bottom: 7.5px">
+    <button name="format" value="key00">Decrypt: {{ prob_key_word[0] }}</button>
+    <button name="format" value="key10">Decrypt: {{ prob_key_word[1] }}</button>
+    <button name="format" value="key20">Decrypt: {{ prob_key_word[2] }}</button>
+    <button name="format" value="key30">Decrypt: {{ prob_key_word[3] }}</button>
+    <button name="format" value="key40">Decrypt: {{ prob_key_word[4] }}</button>
+    <button name="format" value="key50">Decrypt: {{ prob_key_word[5] }}</button>
+    <button name="format" value="key60">Decrypt: {{ prob_key_word[6] }}</button>
+    <button name="format" value="key70">Decrypt: {{ prob_key_word[7] }}</button>
+    <button name="format" value="key80">Decrypt: {{ prob_key_word[8] }}</button>
+  </div>
+</form>
+{% endif %}
 <textarea placeholder="Formatted text will appear here...">{{
   Cipher_text
 }}</textarea>

@@ -222,6 +222,20 @@ def most_common_letters_sorted(diction):
     return most_probable_keys
 
 
+############################################  End of Keyless decryption tools###################################
+def key_ceaser(string):
+    frequency_list = format_freq_order(string)
+    ordered_key_list = most_common_letters_sorted(frequency_list)
+    most_common_numbers = string_to_numbers(ordered_key_list)
+    for i in range(len(most_common_numbers)):
+        most_common_numbers[i] = (most_common_numbers[i] - 4) % 26
+    return most_common_numbers
+
+
+# example returns most common strings
+# print(key_ceaser('aaaaaaaaaaaaaaaqwqwedrstdftzxcgfzcxbnvnmnmkjjgkfdhllpooiiuyu'))
+
+
 ########################################### Keyless vignere string  ############################################
 # try to split input to every nth letter
 string = "OVPJTNVEIHMERQYIDZRRVTQOGPYITBKDTUITMZJNTIZMRNTRUUZHMUASYCDKOEBOVUWRNVIPSNAALRMOQEFQTUCNTFXKKWZSVVYWAZUFIMMGOHRLKNWIIGQUVCAAGZKMAVYOMTIFMOJMXQBXLHLOVUJNYGCWCYYCTGVHNWVBNASXOALGZMBRBEZPDGAABYBVVTNZKCGVBYMGAZPMOMXWFKLNVZAOWOIMGADZCVNOMRCEVONBWIWVLKZRZFVVOBWJNFBNMHVLYMXXOGMFBXMSAEEVYJOIAAIYIBYBNUHWCNAEMGTGJTEMKAHMERAGZSIOGIZILJNBUOKUMOHXHCHDNPTALSVVNZOMHTOSXRIBOSCMIQSNTUIZPOQEVVJMDZNQMTBZTEIWRDSYAGZAVYVNQJXIBXHRAGAORALBUBCREEIHWJZOGPKZDGAABYBCXOZXKBSAOEAAVZDGUBZZSZSGMTLHJBRTUVUGIIMJACHEEMGKVDNTAKDSMAYBNWINAALEMOMSBTJBFZEFPGDSWERVOVSSIFBKVQZFBZSQZGIBVEMOMSVBOASNTVUGBSYTUIZBVZRRIXMXPSGWBMFORVTRQCIMNBAZSORRMYQBOHREUZZY"
@@ -248,13 +262,48 @@ def probable_key_length(string):
 
 print(probable_key_length(string))
 
-new_string = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
-divided_string = []
-for i in range(7):
-    divided_string.append(string[i::7])
+# new_string = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+# divided_string = []
+# for i in range(7):
+#    divided_string.append(string[i::7])
 
-nestlist = []
-print(divided_string)
+# nestlist = []
+# for i in range(len(divided_string)):
+#    nestlist.append(key_ceaser(divided_string[i]))
+# print(nestlist)
+
+# keys = []
+# answers = []
+# for j in range(9):
+#    for i in range(len(divided_string)):
+#        answers.append(chr(nestlist[i][j] + 97))
+#    keys.append("".join(answers))
+#    answers = []
+
+# print(answers)
+# print(keys)
+# print(nestlist[0][0])
+
+
+def get_vigenere_keys(string, key_length):
+    divided_string = []
+    for i in range(key_length):
+        divided_string.append(string[i::key_length])
+    nestlist = []
+    for i in range(len(divided_string)):
+        nestlist.append(key_ceaser(divided_string[i]))
+    keys = []
+    answers = []
+    for j in range(9):
+        for i in range(len(divided_string)):
+            answers.append(chr(nestlist[i][j] + 97))
+        keys.append("".join(answers))
+        answers = []
+    return keys
+
+
+print(get_vigenere_keys(string, 7))
+
 ########list of unindexed IOC's
 
 
@@ -268,15 +317,4 @@ print(divided_string)
 
 
 ############################################  End of Keyless decryption tools###################################
-def key_ceaser(string):
-    frequency_list = format_freq_order(string)
-    ordered_key_list = most_common_letters_sorted(frequency_list)
-    most_common_numbers = string_to_numbers(ordered_key_list)
-    for i in range(len(most_common_numbers)):
-        most_common_numbers[i] = (most_common_numbers[i] - 4) % 26
-    return most_common_numbers
-
-
-# example returns most common strings
-# print(key_ceaser('aaaaaaaaaaaaaaaqwqwedrstdftzxcgfzcxbnvnmnmkjjgkfdhllpooiiuyu'))
 
