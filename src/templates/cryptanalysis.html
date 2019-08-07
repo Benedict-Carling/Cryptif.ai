@@ -293,7 +293,7 @@
 <body>
   <div class="row">
     <div class="four columns">
-      <div class="box-1">
+      <div class="box box-1" style="font-size: 4em; color:rgb(0,0,205) ">
         <p>{{ chi_squared_1 }}</p>
       </div>
     </div>
@@ -321,7 +321,7 @@
 <body>
   <div class="row">
     <div class="four columns">
-      <div class="box-2">
+      <div class="box box-2" style="font-size: 4em; color:rgb(14, 156, 212) ">
         <p>{{ bhat_1 }}</p>
       </div>
     </div>
@@ -349,7 +349,7 @@
 <body>
   <div align="center" class="row">
     <div class="three columns">
-      <div class="circle3">
+      <div class="box box-3" style="font-size: 2em; color:rgb(31, 31, 209) ">
         <p>{{ chi_squared_2 }}</p>
       </div>
       <h3>Bigram</h3>
@@ -361,7 +361,7 @@
       </p>
     </div>
     <div class="three columns">
-      <div class="circle3">
+      <div class="box box-4" style="font-size: 2em; color:rgb(8, 134, 75) ">
         <p>{{ bhat_2 }}</p>
       </div>
       <h3>Bigram</h3>
@@ -374,7 +374,7 @@
       </p>
     </div>
     <div class="three columns">
-      <div class="circle3">
+      <div class="box box-5" style="font-size: 2em; color:rgb(205, 0, 51) ">
         <p>{{ chi_squared_3 }}</p>
       </div>
       <h3>Trigram</h3>
@@ -387,7 +387,7 @@
       </p>
     </div>
     <div class="three columns">
-      <div class="circle3">
+      <div class="box box-6" style="font-size: 2em; color:rgb(96, 96, 105) ">
         <p>{{ bhat_3 }}</p>
       </div>
       <h3>Trigram</h3>
@@ -404,11 +404,11 @@
 
 <style>
   .box {
-    width: 400px;
-    height: 200px;
+    width: 270px;
+    height: 211px;
     max-width: 100%;
     background: var(--bg2);
-    margin: 1rem auto;
+    margin: 0.4em auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -416,15 +416,48 @@
   }
 
   .box-1 {
-    border: 20px solid;
-    border-image-source: url(static/blue_swirl.jpeg);
+    border: 30px solid;
+    border-image-source: url(static/goodswirl1.jpg);
     border-image-slice: 60 30;
   }
 
   .box-2 {
-    border: 20px solid;
-    border-image-source: url(static/darkblue_swirl.jpeg);
-    border-image-slice: 4000 3970;
+    border: 30px solid;
+    height: 173px;
+    border-image-source: url(static/goodswirl2.jpg);
+    border-image-slice: 60 30;
+  }
+
+  .box-3 {
+    border: 30px solid;
+    width: 180px;
+    height: 180px;
+    border-image-source: url(static/goodswirl3.jpg);
+    border-image-slice: 60 30;
+  }
+
+  .box-4 {
+    border: 30px solid;
+    width: 180px;
+    height: 180px;
+    border-image-source: url(static/goodswirl4.jpg);
+    border-image-slice: 60 30;
+  }
+
+  .box-5 {
+    border: 30px solid;
+    width: 180px;
+    height: 180px;
+    border-image-source: url(static/goodswirl5.jpg);
+    border-image-slice: 60 30;
+  }
+
+  .box-6 {
+    border: 30px solid;
+    width: 180px;
+    height: 180px;
+    border-image-source: url(static/goodswirl6.jpg);
+    border-image-slice: 60 30;
   }
 
   .circle1 {
