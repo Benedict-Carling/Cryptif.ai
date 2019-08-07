@@ -226,7 +226,14 @@
     }
   });
 </script>
-
+<h5>How to Analyize Monogram Character Frequency</h5>
+<p>
+  The flatter the frequency distribution curve is the more encrypted your cipher
+  text is this is because differences in Character count can provide weaknesses
+  in security for example if the frequency distribution is just as varient as
+  english text we know the encryption is either monoalphabetic or
+  transpositional as it does not change character Frequencies.
+</p>
 <h1>Index of Coindidence Analysis</h1>
 <canvas
   id="myChart2"
@@ -271,12 +278,22 @@
   });
 </script>
 
+<h5>How to Analyize Index of Coincidence</h5>
+<p>
+  The index of coincidence is a magnitude of measure of the probability of
+  knowing the next letter in a string of text given the previous letter, so in
+  laymans terms its a measures of how many patterns there are in the text. As
+  each encryption method leaves traces of its own signature patterns within the
+  cipher text this is probably the most useful data point for the neural network
+  to detect the cipher encyption method.
+</p>
+
 <h1>Chi Squared Score for Character Frequency</h1>
 
 <body>
   <div class="row">
     <div class="four columns">
-      <div class="circle1">
+      <div class="box-1">
         <p>{{ chi_squared_1 }}</p>
       </div>
     </div>
@@ -304,7 +321,7 @@
 <body>
   <div class="row">
     <div class="four columns">
-      <div class="circle2">
+      <div class="box-2">
         <p>{{ bhat_1 }}</p>
       </div>
     </div>
@@ -318,7 +335,7 @@
         and known english character frequency
       </p>
       <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      $$&#x222b;\sqrt{O(x)E(x)}dx$$
+      $$ln(&#x222b;\sqrt{O(x)E(x)}dx)$$
       <p>
         O is the observed data set to the index k, E is the Expected data set to
         the index k
@@ -330,41 +347,88 @@
 <h1>Ngram Entropic Comparison with English text scores</h1>
 
 <body>
-  <div class="row">
+  <div align="center" class="row">
     <div class="three columns">
       <div class="circle3">
         <p>{{ chi_squared_2 }}</p>
       </div>
-      <h3 align="center">Bigram</h3>
-      <p>Chi Squared Score</p>
+      <h3>Bigram</h3>
+      <h4>Chi Squared Score</h4>
+      <p>
+        This is the same as the comparison algorith outlined above however its
+        for each bigram "ab" in the text instead of monograms "a" therefore we
+        have around 700 data points being computed in the summation
+      </p>
     </div>
     <div class="three columns">
       <div class="circle3">
         <p>{{ bhat_2 }}</p>
       </div>
-      <h3 align="center">Bigram</h3>
-      <p>Bhattaryya Score</p>
+      <h3>Bigram</h3>
+      <h4>Bhattaryya Score</h4>
+      <p>
+        This is also the same as the bhattaryya comparison algorith outlined
+        above with bigrams aswell, this statistic is more commonly used than the
+        chi squared scores in detecting how english the text is by humans as the
+        magnitude of the number is more manageable
+      </p>
     </div>
     <div class="three columns">
       <div class="circle3">
         <p>{{ chi_squared_3 }}</p>
       </div>
-      <h3 align="center">Trigram</h3>
-      <p>Chi Squared Score</p>
+      <h3>Trigram</h3>
+      <h4>Chi Squared Score</h4>
+      <p>
+        This number again follows the Chi Squared algorith with each trigram
+        "abc" in the text instead of monograms "a". This requires significant
+        care with the data handling as we are computing over 17,000 comparisons
+        with the known english trigram statistics.
+      </p>
     </div>
     <div class="three columns">
       <div class="circle3">
         <p>{{ bhat_3 }}</p>
       </div>
-      <h3 align="center">Trigram</h3>
-      <p>Bhattaryya Score</p>
+      <h3>Trigram</h3>
+      <h4>Bhattaryya Score</h4>
+      <p>
+        This number is computed from the Bhattacharyya algorith above with
+        trigrams, the larger n-gram you use for your "englishness" test function
+        the more reliable as can compares with data holding more information
+        about the subtle signature of english text.
+      </p>
     </div>
   </div>
 </body>
 
 <style>
+  .box {
+    width: 400px;
+    height: 200px;
+    max-width: 100%;
+    background: var(--bg2);
+    margin: 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+
+  .box-1 {
+    border: 20px solid;
+    border-image-source: url(static/blue_swirl.jpeg);
+    border-image-slice: 60 30;
+  }
+
+  .box-2 {
+    border: 20px solid;
+    border-image-source: url(static/darkblue_swirl.jpeg);
+    border-image-slice: 4000 3970;
+  }
+
   .circle1 {
-    border: 2.5em solid rgb(25, 144, 148);
+    border: 2.5em solid rgb(54, 135, 201);
     border-radius: 100%;
     height: 14em;
     width: 14em;

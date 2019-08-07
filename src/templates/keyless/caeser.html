@@ -1,0 +1,43 @@
+{% extends "index.html" %} {% block content %}
+
+<h1>Keyless Caeser Decryption</h1>
+<p>
+  Paste your text and click analyse to output the most probable encrypton keys
+  before decryption
+</p>
+<form method="post">
+  <textarea type="text" name="C_text" placeholder="Enter text here...">{{
+    C_text
+  }}</textarea>
+  <div style="float: right; margin-bottom: 7.5px">
+    <button name="format" value="LowerCase">Analyse Text</button>
+  </div>
+
+  {{ id }}
+
+  {% if show_results %}
+  <h1>Most Probable Keys</h1>
+  <h2>
+    Below is a ordered list of the most probable decryption keys click the
+    corresponding button to decrypt
+  </h2>
+  <h3>{{ prob_key }}</h3>
+
+  <div style="float: right; margin-bottom: 7.5px">
+    <button name="format" value="key0">Decrypt: {{ prob_key[0] }}</button>
+    <button name="format" value="key1">Decrypt: {{ prob_key[1] }}</button>
+    <button name="format" value="key2">Decrypt: {{ prob_key[2] }}</button>
+    <button name="format" value="key3">Decrypt: {{ prob_key[3] }}</button>
+    <button name="format" value="key4">Decrypt: {{ prob_key[4] }}</button>
+    <button name="format" value="key5">Decrypt: {{ prob_key[5] }}</button>
+    <button name="format" value="key6">Decrypt: {{ prob_key[6] }}</button>
+    <button name="format" value="key7">Decrypt: {{ prob_key[7] }}</button>
+    <button name="format" value="key8">Decrypt: {{ prob_key[8] }}</button>
+  </div>
+  {% endif %}
+</form>
+
+<textarea placeholder="Formatted text will appear here...">{{
+  Cipher_text
+}}</textarea>
+{% endblock content %}
