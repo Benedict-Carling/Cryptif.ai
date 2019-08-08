@@ -284,11 +284,16 @@ def test_functions():
 
 
 def frequency_list_generate(string):
+    new_string = scrub_string(string.lower())
+    #
     freq = [0 for _ in range(26)]
-    for c in string:
+    for c in new_string.lower():
         freq[ord(c) - ord("a")] += 1
 
     return freq
+
+
+print("abcdefghijklmnop")
 
 
 # IC(text, ncol) inside vignere

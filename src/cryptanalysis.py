@@ -36,7 +36,8 @@ EngFreq = [
 
 
 def chi_square(string):
-    frequency_list = frequency_list_generate(string.lower())
+    theinput = string.lower()
+    frequency_list = frequency_list_generate(theinput)
     percentage_list = []
     for i in range(len(frequency_list)):
         if sum(frequency_list) == 0:
@@ -56,8 +57,8 @@ def chi_square(string):
     return chi_score
 
 
-print("Your Chi Squared score for this Cipher text compared to english text is: ")
-print(chi_square("qweqwesaiudyusaftyudstcxgzxjvcxbvzkjaflkjdspoioruewq"))
+# print("Your Chi Squared score for this Cipher text compared to english text is: ")
+# print(chi_square("qweqwesaiudyusaftyudstcxgzxjvcxbvzkjaflkjdspoioruewq"))
 
 ################################################### Chi Squared text score finish ##############################
 
@@ -878,8 +879,8 @@ tri_size = sum(trigram_values)
 trigram_percentage = []
 for j in range(len(trigram_values)):
     trigram_percentage.append(trigram_values[j] / tri_size)
-print(trigram_percentage)
-print(len(trigram_percentage))
+# print(trigram_percentage)
+# print(len(trigram_percentage))
 ################################################################### Creating trigram percentages ############
 
 initial_tri_diction = {}
