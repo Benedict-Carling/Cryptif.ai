@@ -2,6 +2,7 @@ from decryptionFunctions import frequency_list_generate
 from collections import OrderedDict
 import operator
 from collections import Counter
+from static.trigram import trigram
 
 
 EngFreq = [
@@ -812,7 +813,7 @@ def find_bigrams(string):
     return bigram_observed_percentages
 
 
-print(find_bigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz"))
+# print(find_bigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz"))
 
 
 def chi_square_of_bigrams(list):
@@ -831,12 +832,11 @@ def chi_square_of_bigrams(list):
     return chi_score
 
 
-print(
-    chi_square_of_bigrams(
-        find_bigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz")
-    )
-)
-
+# print(
+#    chi_square_of_bigrams(
+#        find_bigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz")
+#    )
+# )
 ########################################    END OF BiGram chi squared value function ##################
 
 
@@ -848,24 +848,28 @@ def bhattacharyya_for_bigram(list):
     )
 
 
-print("Bhattacharyya:")
-print(
-    bhattacharyya_for_bigram(
-        find_bigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz")
-    )
-)
+# print("Bhattacharyya:")
+# print(
+#    bhattacharyya_for_bigram(
+#        find_bigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz")
+#    )
+# )
 
 # print('Your Chi Squared score for this Cipher text compared to english text is: ')
 # print(chi_square('qweqwesaiudyusaftyudstcxgzxjvcxbvzkjaflkjdspoioruewq'))
 
 ########################################## Trigram  #################################################
 
-from static.trigram import trigram
 
 sort_trigram = sorted(trigram.items())
 trigram_values = []
+
+# print(sort_trigram)
+# print(len(sort_trigram))
+
+# print(sort_trigram[0][0])
 for i in range(len(sort_trigram)):
-  trigram_values.append(sort_trigram[i][1])
+    trigram_values.append(sort_trigram[i][1])
 # print(sort_bigram)
 # print(values)
 
@@ -873,15 +877,16 @@ for i in range(len(sort_trigram)):
 tri_size = sum(trigram_values)
 trigram_percentage = []
 for j in range(len(trigram_values)):
-  trigram_percentage.append(trigram_values[j]/tri_size)
-#print(trigram_percentage)
+    trigram_percentage.append(trigram_values[j] / tri_size)
+print(trigram_percentage)
+print(len(trigram_percentage))
 ################################################################### Creating trigram percentages ############
 
 initial_tri_diction = {}
 for i in range(26):
-  for j in range(26):
-    for k in range(26):
-      initial_tri_diction[chr(i + 65) + chr(j + 65) + chr(k + 65)] = 0
+    for j in range(26):
+        for k in range(26):
+            initial_tri_diction[chr(i + 65) + chr(j + 65) + chr(k + 65)] = 0
 
 
 def find_trigrams(string):
@@ -904,41 +909,40 @@ def find_trigrams(string):
     return trigram_observed_percentages
 
 
-print(find_trigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszzzz"))
-print(len(trigram_percentage))
-print(len(find_trigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszzzz")))
+# print(find_trigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszzzz"))
+# print(len(trigram_percentage))
+# print(len(find_trigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszzzz")))
 ############### trigram chi score
 def chi_square_of_trigrams(list):
 
     diffenece_list = []
     for j in range(17555):
-        diffenece_list.append(
-            (
-                (list[j] - trigram_percentage[j])
-                * (list[j] - trigram_percentage[j])
+        if trigram_percentage[j]:
+            diffenece_list.append(
+                ((list[j] - trigram_percentage[j]) * (list[j] - trigram_percentage[j]))
+                / trigram_percentage[j]
             )
-            / trigram_percentage[j]
-        )
+        else:
+            diffenece_list.append(0.0)
 
     chi_score = sum(diffenece_list)
     return chi_score
 
-print('chi quare trigram')
-print(chi_square_of_trigrams(find_trigrams('dsadwqdiuhduaishckjzxbcxznmcjhdskjaihiuczhkjsahduizzz')))
+
+# print('chi quare trigram')
+# print(chi_square_of_trigrams(find_trigrams('dsadwqdiuhduaishckjzxbcxznmcjhdskjaihiuczhkjsahduizzz')))
 
 ##### bhattaryya
 def bhattacharyya_for_trigram(list):
-    return -math.log(
-        sum((math.sqrt(u * w) for u, w in zip(list, trigram_percentage)))
-    )
+    return -math.log(sum((math.sqrt(u * w) for u, w in zip(list, trigram_percentage))))
 
 
-print("Bhattacharyya:")
-print(
-    bhattacharyya_for_trigram(
-        find_bigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz")
-    )
-)
+# print("Bhattacharyya:")
+# print(
+#    bhattacharyya_for_trigram(
+#        find_bigrams("adsabdnsabdnmabnmxbvcsdfiushfkjhkjewhjoioicszz")
+#    )
+# )
 
 ######print(bigram_ordered_percentages)
 # sort_bigram = sorted(bigram_percentage.items(), key=lambda x: x[0])
