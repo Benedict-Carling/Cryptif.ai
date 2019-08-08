@@ -2,8 +2,6 @@
 #####  <<<------------------------- DELETE ONCE DONE ---------------------------------->>>  ###########
 #####  <<<----------------------------------------------------------------------------->>>  ###########
 #####  <<<------------------------- Make AI page functional(scroll/background) -------->>>  ###########
-#####  <<<------------------------- add gradient to circle in cryptanalysis ----------->>>  ###########
-#####  <<<------------------------- fix cryptanalysis size limit issue ---------------->>>  ###########
 #####  <<<---------------------------------possibly a function though clean functions ->>>  ###########
 #####  <<<------------------------- find a logo online add to corners!!!!!!!! --------->>>  ###########
 #####  <<<------------------------- add more cipher types on ENC/DEC ------------------>>>  ###########
@@ -84,25 +82,27 @@ def format():
 @app.route("/cryptanalysis", methods=["GET", "POST"])
 def cryptanalysis():
     if request.method == "POST":
-        C_text = scrub_string(request.form["C_text"])
+        Cb_text = scrub_string(request.form["C_text"])
+        Ch_text = Cb_text.lower()
+        C_text = ''.join([i for i in Ch_text if not i.isdigit()])
         chi_squared_1 = "{0:.4f}".format(
-            chi_square(scrub_string(request.form["C_text"]))
+            chi_square(C_text)
         )
-        bhat_1 = "{0:.4f}".format(bhattacharyya(scrub_string(request.form["C_text"])))
+        bhat_1 = "{0:.4f}".format(bhattacharyya(C_text))
         chi_squared_2 = "{0:.2f}".format(
-            chi_square_of_bigrams(find_bigrams(scrub_string(request.form["C_text"])))
+            chi_square_of_bigrams(find_bigrams(C_text))
         )
         bhat_2 = "{0:.2f}".format(
-            bhattacharyya_for_bigram(find_bigrams(scrub_string(request.form["C_text"])))
+            bhattacharyya_for_bigram(find_bigrams(C_text))
         )
         chi_squared_3 = "{0:.2f}".format(
-            chi_square_of_trigrams(find_trigrams(scrub_string(request.form["C_text"])))
+            chi_square_of_trigrams(find_trigrams(C_text))
         )
         bhat_3 = "{0:.2f}".format(
             bhattacharyya_for_trigram(
-                find_trigrams(scrub_string(request.form["C_text"]))
+                find_trigrams(C_text))
             )
-        )
+        
 
         return render_template(
             "cryptanalysis.html",
@@ -755,7 +755,6 @@ def KEY_Vigenere():
             Key_number = int(prob_key_len[8])
             plaintext = C_text
             prob_key_word = get_vigenere_keys(C_text,prob_key_len[8])
-            index_variable = 8
             return render_template(
                 "keyless/vigenere.html",
                 Cipher_text=C_text.lower(),
@@ -763,6 +762,7 @@ def KEY_Vigenere():
                 show_results=2,
                 prob_key_len=prob_key_len,
                 prob_key_word=prob_key_word,
+                previous=8
             )
 
         if method == "key00":
