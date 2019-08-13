@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block content %}
+    <h1>ROT 13 Cipher Decryption</h1>
+    <p>Copy and Paste your decrypted cipher text below and click decrypt to return the hidden plain text</p>
+    <form method="post">
+        <textarea name=C_text></textarea>
+        <input type=submit value=Decrypt>
+    </form>
+
+    <textarea>{{Cipher_text}}</textarea>
+
+    <form method="post">
+        <output type=text name=C_text>
+    </form>
+{% endblock content %}

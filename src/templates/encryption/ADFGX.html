@@ -1,23 +1,23 @@
 {% extends "index.html" %}
 {% block content %}
-    <h1>Bifid Cipher Encryption</h1>
+    <h1>ADFGX Encryption</h1>
     <p>Copy and Paste your decrypted cipher text below and click decrypt to return the hidden plain text</p>
     <form method="post">
         <textarea name=C_text></textarea>
-        <p>Affine shift are encrypted with a key matrix a 6x6 grid of every letter and number 0-9 and a key word</p>
+        <p>ADFGX shift are encrypted with a key matrix a 5x5 grid of every letter excluding j and a key word/p>
         <div class="row">
                 <div class="six columns">
                   <label for="key_matrix">Key Matrix:</label>
                   <input name=key_matrix class="u-full-width" type="string" placeholder="qwertyuioplkhgfdsazxcvbnm">
                 </div>
                 <div class="six columns">
-                    <label for="key_integer">Key Integer: </label>
-                    <input name=key_integer class="u-full-width" type="integer" placeholder="3">      
+                    <label for="key_integer">Key word: </label>
+                    <input name=key_integer class="u-full-width" type="integer" placeholder="benedict">      
                 </div>
               </div>
               {% if show_error %}
               <div style="color: crimson">
-                  Error 200: Please enter a integer and a matrix of length 25 Please, and make sure plaintext length is divisible by key integer :)
+                  Error 200: Please enter a integer and a matrix of length 25 Please, and make sure plaintext length is divisible by key word length :)
               </div>
               {% endif %}
             <div>

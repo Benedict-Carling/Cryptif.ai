@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
-    <h1>Affine Cipher Decryption</h1>
+    <h1>Affine Cipher Encryption</h1>
     <p>Copy and Paste your decrypted cipher text below and click decrypt to return the hidden plain text</p>
     <form method="post">
         <textarea name=C_text></textarea>
@@ -15,7 +15,11 @@
                     <input name=key2 class="u-full-width" type="integer" placeholder="4">      
                 </div>
               </div>
-
+            {% if show_error %}
+            <div style="color: crimson">
+                Error 200: Please enter integers between 0-26 and remeber for affine to work a has to be a odd integer, Thank you :)
+            </div>
+            {% endif %}
             <div>
                 <input type=submit value=Encrypt> 
             </div>

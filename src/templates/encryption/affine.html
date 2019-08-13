@@ -15,7 +15,11 @@
                     <input name=key2 class="u-full-width" type="integer" placeholder="4">      
                 </div>
               </div>
-
+            {% if show_error %}
+            <div style="color: crimson">
+                Error 200: Please enter integers between 0-26 and remeber for affine to work a has to be a odd integer, Thank you :)
+            </div>
+            {% endif %}
             <div>
                 <input type=submit value=Encrypt> 
             </div>

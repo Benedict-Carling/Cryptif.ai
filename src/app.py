@@ -24,6 +24,7 @@ from decryptionFunctions import *
 from ALL_ENCRYPTION import *
 from cryptanalysis import *
 from keyless import *
+from pycipher import *
 
 #####  <<<------------------------- initial setup ------------------------------------->>>  ###########
 #####  <<<------------------------- and secret key ------------------------------------>>>  ###########
@@ -83,36 +84,39 @@ def cryptanalysis():
         Cb_text = scrub_string(request.form["C_text"])
         Ch_text = Cb_text.lower()
         C_text = ''.join([i for i in Ch_text if not i.isdigit()])
-        chi_squared_1 = "{0:.4f}".format(
-            chi_square(C_text)
-        )
-        bhat_1 = "{0:.4f}".format(bhattacharyya(C_text))
-        chi_squared_2 = "{0:.2f}".format(
-            chi_square_of_bigrams(find_bigrams(C_text))
-        )
-        bhat_2 = "{0:.2f}".format(
-            bhattacharyya_for_bigram(find_bigrams(C_text))
-        )
-        chi_squared_3 = "{0:.2f}".format(
-            chi_square_of_trigrams(find_trigrams(C_text))
-        )
-        bhat_3 = "{0:.2f}".format(
-            bhattacharyya_for_trigram(
-                find_trigrams(C_text))
+        if len(C_text)<2:
+            return render_template("cryptanalysis.html", Frequency=frequency_list_generate(""), show_error=1)
+        else:
+            chi_squared_1 = "{0:.4f}".format(
+                chi_square(C_text)
             )
-        
+            bhat_1 = "{0:.4f}".format(bhattacharyya(C_text))
+            chi_squared_2 = "{0:.2f}".format(
+                chi_square_of_bigrams(find_bigrams(C_text))
+            )
+            bhat_2 = "{0:.2f}".format(
+                bhattacharyya_for_bigram(find_bigrams(C_text))
+            )
+            chi_squared_3 = "{0:.2f}".format(
+                chi_square_of_trigrams(find_trigrams(C_text))
+            )
+            bhat_3 = "{0:.2f}".format(
+                bhattacharyya_for_trigram(
+                    find_trigrams(C_text))
+                )
+            
 
-        return render_template(
-            "cryptanalysis.html",
-            Frequency=frequency_list_generate(C_text),
-            IOC=str(IC(C_text, 1)),
-            chi_squared_1=chi_squared_1,
-            bhat_1=bhat_1,
-            chi_squared_2=chi_squared_2,
-            bhat_2=bhat_2,
-            chi_squared_3=chi_squared_3,
-            bhat_3=bhat_3,
-        )
+            return render_template(
+                "cryptanalysis.html",
+                Frequency=frequency_list_generate(C_text),
+                IOC=str(IC(C_text, 1)),
+                chi_squared_1=chi_squared_1,
+                bhat_1=bhat_1,
+                chi_squared_2=chi_squared_2,
+                bhat_2=bhat_2,
+                chi_squared_3=chi_squared_3,
+                bhat_3=bhat_3,
+            )
     return render_template("cryptanalysis.html", Frequency=frequency_list_generate(""))
 
 
@@ -177,10 +181,13 @@ def keylessdecryption():
 def ENC_Caeser():
     if request.method == "POST":
         plaintext = request.form["C_text"]
-        Key_number = int(request.form["Key_number"])
-        return render_template(
-            "encryption/caeser.html", Cipher_text=Caesar_Enc(plaintext, Key_number)
-        )
+        Key_number = (request.form["Key_number"])
+        if ((Key_number.isdigit()==False)or(int(Key_number)<0)or(int(Key_number)>26)or(len(Key_number)==0)):
+            return render_template("encryption/caeser.html", show_error=1)
+        else:
+            return render_template(
+                "encryption/caeser.html", Cipher_text=Caesar_Enc(plaintext, int(Key_number))
+            )
     return render_template("encryption/caeser.html")
 
 
@@ -217,12 +224,15 @@ def ENC_Atbash():
 @app.route("/encryption/affine", methods=["GET", "POST"])
 def ENC_Affine():
     if request.method == "POST":
-        C_text = request.form["C_text"]
-        key1 = int(request.form["key1"])
-        key2 = int(request.form["key2"])
-        return render_template(
-            "encryption/affine.html", Cipher_text=AFFINE_Enc(C_text, key1, key2)
-        )
+        plaintext = request.form["C_text"]
+        key1 = request.form["key1"]
+        key2 = request.form["key2"]
+        if ((key1.isdigit()==False)or(key2.isdigit()==False)or((int(key1))%2==0)or(len(key1)==0)):
+            return render_template("encryption/affine.html", show_error=1)
+        else:
+            return render_template(
+            "encryption/affine.html", Cipher_text=(Affine(int(key1),int(key2)).encipher(plaintext))
+            )
     return render_template("encryption/affine.html")
 
 
@@ -234,10 +244,14 @@ def ENC_Affine():
 def ENC_Vigenere():
     if request.method == "POST":
         plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "encryption/vigenere.html", Cipher_text=VIGENERE_Enc(plaintext, Key_phrase)
-        )
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "encryption/vigenere.html", Cipher_text=VIGENERE_Enc(plaintext, Key_phrase3)
+            )
     return render_template("encryption/vigenere.html")
 
 
@@ -249,10 +263,13 @@ def ENC_Vigenere():
 def ENC_Autokey():
     if request.method == "POST":
         plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "encryption/autokey.html", Cipher_text=AUTOKEY_Enc(plaintext, Key_phrase)
-        )
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 =''.join([i for i in Key_phrase0 if not i.isdigit()])
+        Key_phrase2 = scrub_string(Key_phrase1)
+        if len(Key_phrase2)!=0:
+            return render_template(
+                "encryption/autokey.html", Cipher_text=AUTOKEY_Enc(plaintext, Key_phrase2)
+            )
     return render_template("encryption/autokey.html")
 
 
@@ -264,10 +281,14 @@ def ENC_Autokey():
 def ENC_Beaufort():
     if request.method == "POST":
         plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "encryption/beaufort.html", Cipher_text=BEAUFORT_Enc(plaintext, Key_phrase)
-        )
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "encryption/beaufort.html", Cipher_text=BEAUFORT_Enc(plaintext, Key_phrase3)
+            )
     return render_template("encryption/beaufort.html")
 
 
@@ -279,10 +300,14 @@ def ENC_Beaufort():
 def ENC_Coltrans():
     if request.method == "POST":
         plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "encryption/coltrans.html", Cipher_text=COLTRANS_Enc(plaintext, Key_phrase)
-        )
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "encryption/coltrans.html", Cipher_text=COLTRANS_Enc(plaintext, Key_phrase3)
+            )
     return render_template("encryption/coltrans.html")
 
 
@@ -293,14 +318,20 @@ def ENC_Coltrans():
 @app.route("/encryption/bifid", methods=["GET", "POST"])
 def ENC_Bifid():
     if request.method == "POST":
-        plaintext = request.form["C_text"]
+        plaintext = scrub_string(request.form["C_text"])
         key_matrix = str(request.form["key_matrix"])
-        key_integer = int(request.form["key_integer"])
-        return render_template(
-            "encryption/bifid.html",
-            Cipher_text=BIFID_Enc(plaintext, key_matrix, key_integer),
-        )
+        key_integer = request.form["key_integer"]
+        if ((len(key_matrix)!=25)or(key_matrix.isalpha()==False)or(str(key_integer).isdigit()==False)or(len(plaintext)%int(key_integer)!=0)):
+            return render_template("encryption/bifid.html",show_error=1)
+        else:
+            return render_template(
+                "encryption/bifid.html",
+                Cipher_text=Bifid(str(key_matrix),int(key_integer)).encipher(plaintext),
+            )
     return render_template("encryption/bifid.html")
+
+
+
 
 
 #####  <<<------------------------- PORTA ----------------------------------------------->>>  ###########
@@ -310,11 +341,15 @@ def ENC_Bifid():
 @app.route("/encryption/porta", methods=["GET", "POST"])
 def ENC_Porta():
     if request.method == "POST":
-        plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "encryption/porta.html", Cipher_text=PORTA_Enc(plaintext, Key_phrase)
-        )
+        plaintext = scrub_string(request.form["C_text"])
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "encryption/porta.html", Cipher_text=PORTA_Enc(plaintext, Key_phrase3)
+            )
     return render_template("encryption/porta.html")
 
 
@@ -322,17 +357,42 @@ def ENC_Porta():
 #####  <<<------------------------- Needs building -------------------------------------->>>  ###########
 
 
-@app.route("/encryption/aDFGX", methods=["GET", "POST"])
+
+@app.route("/encryption/ADFGX", methods=["GET", "POST"])
 def ENC_ADFGX():
     if request.method == "POST":
-        plaintext = request.form["C_text"]
+        plaintext = scrub_string(request.form["C_text"])
         key_matrix = str(request.form["key_matrix"])
-        key_word = str(request.form["key_word"])
-        return render_template(
-            "encryption/aDFGX.html",
-            Cipher_text=BIFID_Enc(plaintext, key_matrix, key_word),
-        )
-    return render_template("encryption/aDFGX.html")
+        Key_phrase0 = request.form["key_integer"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if ((len(key_matrix)!=25)or(key_matrix.isalpha()==False)or(Key_phrase3.isalpha()==False)or(len(plaintext)%len(Key_phrase3)!=0)):
+            return render_template("encryption/ADFGX.html",show_error=1)
+        else:
+            return render_template(
+                "encryption/ADFGX.html",
+                Cipher_text=ADFGX(str(key_matrix),str(Key_phrase3)).encipher(plaintext) ,
+            )
+    return render_template("encryption/ADFGX.html")
+
+@app.route("/encryption/ADFGVX", methods=["GET", "POST"])
+def ENC_ADFGVX():
+    if request.method == "POST":
+        plaintext = scrub_string(request.form["C_text"])
+        key_matrix = str(request.form["key_matrix"])
+        Key_phrase0 = request.form["key_integer"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if ((len(key_matrix)!=36)or(Key_phrase3.isalpha()==False)or(len(plaintext)%len(Key_phrase3)!=0)):
+            return render_template("encryption/ADFGVX.html",show_error=1)
+        else:
+            return render_template(
+                "encryption/ADFGVX.html",
+                Cipher_text=ADFGVX(str(key_matrix),str(Key_phrase3)).encipher(plaintext) ,
+            )
+    return render_template("encryption/ADFGVX.html")
 
 
 #####  <<<------------------------- ENCYPTION ENDS HERE ------------------------------->>>  ###########
@@ -354,10 +414,13 @@ def ENC_ADFGX():
 def DEC_Caeser():
     if request.method == "POST":
         plaintext = request.form["C_text"]
-        Key_number = int(request.form["Key_number"])
-        return render_template(
-            "decryption/caeser.html", Cipher_text=Caesar_Dec(plaintext, Key_number)
-        )
+        Key_number = (request.form["Key_number"])
+        if ((Key_number.isdigit()==False)or(int(Key_number)<0)or(int(Key_number)>26)or(len(Key_number)==0)):
+            return render_template("decryption/caeser.html", show_error=1)
+        else:
+            return render_template(
+                "decryption/caeser.html", Cipher_text=Caesar_Dec(plaintext, int(Key_number))
+            )
     return render_template("decryption/caeser.html")
 
 
@@ -394,12 +457,15 @@ def DEC_Atbash():
 @app.route("/decryption/affine", methods=["GET", "POST"])
 def DEC_Affine():
     if request.method == "POST":
-        C_text = request.form["C_text"]
-        key1 = int(request.form["key1"])
-        key2 = int(request.form["key2"])
-        return render_template(
-            "decryption/affine.html", Cipher_text=AFFINE_Dec(C_text, key1, key2)
-        )
+        plaintext = request.form["C_text"]
+        key1 = request.form["key1"]
+        key2 = request.form["key2"]
+        if ((key1.isdigit()==False)or(key2.isdigit()==False)or((int(key1))%2==0)or(len(key1)==0)):
+            return render_template("decryption/affine.html", show_error=1)
+        else:
+            return render_template(
+            "decryption/affine.html", Cipher_text=(Affine(int(key1),int(key2)).decipher(plaintext))
+            )
     return render_template("decryption/affine.html")
 
 
@@ -410,11 +476,15 @@ def DEC_Affine():
 @app.route("/decryption/vigenere", methods=["GET", "POST"])
 def DEC_Vigenere():
     if request.method == "POST":
-        plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "decryption/vigenere.html", Cipher_text=VIGENERE_Dec(plaintext, Key_phrase)
-        )
+        plaintext = scrub_string(request.form["C_text"])
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "decryption/vigenere.html", Cipher_text=VIGENERE_Dec(plaintext, Key_phrase3)
+            )
     return render_template("decryption/vigenere.html")
 
 
@@ -425,11 +495,15 @@ def DEC_Vigenere():
 @app.route("/decryption/autokey", methods=["GET", "POST"])
 def DEC_Autokey():
     if request.method == "POST":
-        plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "decryption/autokey.html", Cipher_text=AUTOKEY_Dec(plaintext, Key_phrase)
-        )
+        plaintext = scrub_string(request.form["C_text"])
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "decryption/autokey.html", Cipher_text=AUTOKEY_Dec(plaintext, Key_phrase3)
+            )
     return render_template("decryption/autokey.html")
 
 
@@ -440,11 +514,15 @@ def DEC_Autokey():
 @app.route("/decryption/beaufort", methods=["GET", "POST"])
 def DEC_Beaufort():
     if request.method == "POST":
-        plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "decryption/beaufort.html", Cipher_text=BEAUFORT_Dec(plaintext, Key_phrase)
-        )
+        plaintext = scrub_string(request.form["C_text"])
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "decryption/beaufort.html", Cipher_text=BEAUFORT_Dec(plaintext, Key_phrase3)
+            )
     return render_template("decryption/beaufort.html")
 
 
@@ -456,10 +534,14 @@ def DEC_Beaufort():
 def DEC_Coltrans():
     if request.method == "POST":
         plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "decryption/coltrans.html", Cipher_text=COLTRANS_Dec(plaintext, Key_phrase)
-        )
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "decryption/coltrans.html", Cipher_text=COLTRANS_Dec(plaintext, Key_phrase3)
+            )
     return render_template("decryption/coltrans.html")
 
 
@@ -470,13 +552,16 @@ def DEC_Coltrans():
 @app.route("/decryption/bifid", methods=["GET", "POST"])
 def DEC_Bifid():
     if request.method == "POST":
-        plaintext = request.form["C_text"]
+        plaintext = scrub_string(request.form["C_text"])
         key_matrix = str(request.form["key_matrix"])
-        key_integer = int(request.form["key_integer"])
-        return render_template(
-            "decryption/bifid.html",
-            Cipher_text=BIFID_Dec(plaintext, key_matrix, key_integer),
-        )
+        key_integer = request.form["key_integer"]
+        if ((len(key_matrix)!=25)or(key_matrix.isalpha()==False)or(str(key_integer).isdigit()==False)or(len(plaintext)%int(key_integer)!=0)):
+            return render_template("decryption/bifid.html",show_error=1)
+        else:
+            return render_template(
+                "decryption/bifid.html",
+                Cipher_text=Bifid(str(key_matrix),int(key_integer)).decipher(plaintext),
+            )
     return render_template("decryption/bifid.html")
 
 
@@ -488,10 +573,14 @@ def DEC_Bifid():
 def DEC_Porta():
     if request.method == "POST":
         plaintext = request.form["C_text"]
-        Key_phrase = request.form["Key_phrase"]
-        return render_template(
-            "decryption/porta.html", Cipher_text=PORTA_Dec(plaintext, Key_phrase)
-        )
+        Key_phrase0 = request.form["Key_phrase"]
+        Key_phrase1 = Key_phrase0.replace(" ", "")
+        Key_phrase2 =''.join([i for i in Key_phrase1 if not i.isdigit()])
+        Key_phrase3 = scrub_string(Key_phrase2)
+        if len(Key_phrase3)!=0:
+            return render_template(
+                "decryption/porta.html", Cipher_text=PORTA_Dec(plaintext, Key_phrase3)
+            )
     return render_template("decryption/porta.html")
 
 

@@ -8,6 +8,12 @@
   The frequency distribution and Index of coincidence can reveal language and
   the encryption algorithm used.
 </div>
+{% if show_error %}
+<div style="color: crimson">
+  Error 100: Please enter atleast 2 characters to analyse
+</div>
+{% endif %}
+
 <form method="post" style="margin-bottom: 65px">
   <textarea name="C_text" placeholder="Enter text here..."></textarea>
   <input style="float: right" type="submit" value="Analyize Text" />

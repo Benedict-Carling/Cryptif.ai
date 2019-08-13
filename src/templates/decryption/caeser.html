@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
-    <h1>Ceaser Cipher Decryption</h1>
+    <h1>Ceaser Cipher Dencryption</h1>
     <p>Copy and Paste your decrypted cipher text below and click decrypt to return the hidden plain text</p>
     <form method="post">
         <textarea name=C_text></textarea>
@@ -11,6 +11,11 @@
             <div class="two columns"></div>
                 <input name=Key_number class="u-full-width" type="integer" placeholder="3" id="Key_number">
             </div>
+            {% if show_error %}
+            <div style="color: crimson">
+                Error 200: Please enter a integer between 0 and 26, Thankyou :)
+            </div>
+            {% endif %}
             <div>
                 <input type=submit value=Encrypt> 
             </div>
