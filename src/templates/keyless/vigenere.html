@@ -1,61 +1,183 @@
-{% extends "index.html" %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="msapplication-TileColor" content="#7dc5bc" />
+    <meta name="theme-color" content="#7dc5bc" />
+    <meta name="author" content="Benedict Carling & Giovanni Passerello" />
+    <title>Cyptif.ai</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <script src="https://kit.fontawesome.com/63bcce9f53.js"></script>
+    <link
+      href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
 
-<h1>Keyless Vigenere Decryption</h1>
-<p>
-  Paste your text and click analyse to output the most probable encrypton keys
-  before decryption
-</p>
-<form method="post">
-  <textarea type="text" name="C_text" placeholder="Enter text here...">{{
-    C_text
-  }}</textarea>
-  <div style="float: right; margin-bottom: 7.5px">
-    <button name="format" value="LowerCase">Analyse Text</button>
-  </div>
+    <style>
+      html {
+        position: relative;
+        min-height: 100% 
+      }
 
-  {{ id }}
+      .wrapper {
+        margin-bottom: 60px
+      }
 
-  {% if show_results %}
-  <h1>Most Probable Keys</h1>
-  <h6>
-    Below is a ordered list of the most probable decryption keys click the
-    corresponding button to decrypt
-  </h6>
-  <h3>{{ prob_key_len }}</h3>
+      .container {
+        margin-top: 75px;
+        padding-left: 16px;
+        padding-right: 16px;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
 
-  <div style="float: right; margin-bottom: 7.5px">
-    <button name="format" value="key0">Choose: {{ prob_key_len[0] }}</button>
-    <button name="format" value="key1">Choose: {{ prob_key_len[1] }}</button>
-    <button name="format" value="key2">Choose: {{ prob_key_len[2] }}</button>
-    <button name="format" value="key3">Choose: {{ prob_key_len[3] }}</button>
-    <button name="format" value="key4">Choose: {{ prob_key_len[4] }}</button>
-    <button name="format" value="key5">Choose: {{ prob_key_len[5] }}</button>
-    <button name="format" value="key6">Choose: {{ prob_key_len[6] }}</button>
-    <button name="format" value="key7">Choose: {{ prob_key_len[7] }}</button>
-    <button name="format" value="key8">Choose: {{ prob_key_len[8] }}</button>
-  </div>
-  {% endif %} {% if show_results==2 %}
-  <h1>Most Probable Keys</h1>
-  <h6>
-    Below is a ordered list of the most probable decryption keys click the
-    corresponding button to decrypt
-  </h6>
-  <h3>{{ prob_key_word }}</h3>
+      textarea {
+        width: 100%;
+        height: 200px;
+        resize: none;
+      }
 
-  <div style="float: right; margin-bottom: 7.5px">
-    <button name="format" value="key00">Decrypt: {{ prob_key_word[0] }}</button>
-    <button name="format" value="key10">Decrypt: {{ prob_key_word[1] }}</button>
-    <button name="format" value="key20">Decrypt: {{ prob_key_word[2] }}</button>
-    <button name="format" value="key30">Decrypt: {{ prob_key_word[3] }}</button>
-    <button name="format" value="key40">Decrypt: {{ prob_key_word[4] }}</button>
-    <button name="format" value="key50">Decrypt: {{ prob_key_word[5] }}</button>
-    <button name="format" value="key60">Decrypt: {{ prob_key_word[6] }}</button>
-    <button name="format" value="key70">Decrypt: {{ prob_key_word[7] }}</button>
-    <button name="format" value="key80">Decrypt: {{ prob_key_word[8] }}</button>
-  </div>
-</form>
-{% endif %}
-<textarea placeholder="Formatted text will appear here...">{{
-  Cipher_text
-}}</textarea>
-{% endblock content %}
+      div.scrollmenu {
+        background-color: #333;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-color: rgb(25, 144, 148) #333;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+      }
+
+      div.scrollmenu a {
+        display: inline-block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      div.scrollmenu a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      div.scrollmenu a.active {
+        background-color: rgb(25, 144, 148);
+      }
+
+
+      html {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../static/citybackground1.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+
+      textarea {
+        width: 100%;
+        height: x;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #33c3f0;
+        resize: none;
+      }
+
+      :focus {
+        outline: none;
+      } 
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="scrollmenu">
+        <a class="active" href="/">Home</a>
+        <a href="/format">Format Text</a>
+        <a href="/cryptanalysis">Cryptanalysis</a>
+        <a href="/encryption">Encryption</a>
+        <a href="/decryption">Decryption</a>
+        <a href="/deepLearning">Deep Learning Decryption</a>
+        <a href="/keyless">Keyless Decryption</a>
+      </div>
+
+      <div class="container">
+          <div>
+              <h1 style="color: white">Keyless Vigenere Decryption</h1>
+              <p style="color: white">
+                Paste your text and click analyse to output the most probable encrypton keys
+                before decryption
+              </p>
+              <form method="post">
+                <textarea type="text" name="C_text" placeholder="Enter text here...">{{
+                  C_text
+                }}</textarea>
+                <div style="float: right; margin-bottom: 7.5px">
+                  <button name="format" value="LowerCase" class="button-primary" style="float: right; margin-bottom: 17.5px; background-color: #33c4f083;">Analyse Text</button>
+                </div>
+
+                {{ id }}
+
+                {% if show_results %}
+                <h1 style="color: white">Most Probable Keys</h1>
+                <h6 style="color: white">
+                  Below is a ordered list of the most probable decryption keys click the
+                  corresponding button to decrypt
+                </h6>
+                <h3 style="color: white">{{ prob_key_len }}</h3>
+
+                <div style="float: right; margin-bottom: 7.5px">
+                  <button name="format" value="key0" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[0] }}</button>
+                  <button name="format" value="key1" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[1] }}</button>
+                  <button name="format" value="key2" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[2] }}</button>
+                  <button name="format" value="key3" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[3] }}</button>
+                  <button name="format" value="key4" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[4] }}</button>
+                  <button name="format" value="key5" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[5] }}</button>
+                  <button name="format" value="key6" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[6] }}</button>
+                  <button name="format" value="key7" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[7] }}</button>
+                  <button name="format" value="key8" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Choose: {{ prob_key_len[8] }}</button>
+                </div>
+                {% endif %} {% if show_results==2 %}
+                <h1 style="color: white">Most Probable Keys</h1>
+                <h6 style="color: white">
+                  Below is a ordered list of the most probable decryption keys click the
+                  corresponding button to decrypt
+                </h6>
+                <h3 style="color: white">{{ prob_key_word }}</h3>
+
+                <div style="float: right; margin-bottom: 7.5px">
+                  <button name="format" value="key00" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[0] }}</button>
+                  <button name="format" value="key10" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[1] }}</button>
+                  <button name="format" value="key20" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[2] }}</button>
+                  <button name="format" value="key30" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[3] }}</button>
+                  <button name="format" value="key40" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[4] }}</button>
+                  <button name="format" value="key50" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[5] }}</button>
+                  <button name="format" value="key60" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[6] }}</button>
+                  <button name="format" value="key70" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[7] }}</button>
+                  <button name="format" value="key80" class="button-primary" style="float: left; margin-bottom: 7.5px; margin-right: 5px; background-color: #33c4f083">Decrypt: {{ prob_key_word[8] }}</button>
+                </div>
+              </form>
+              {% endif %}
+              <textarea placeholder="Formatted text will appear here...">{{
+                Cipher_text
+              }}</textarea>
+
+            </div>
+      </div>
+
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  </body>
+</html>
+
+

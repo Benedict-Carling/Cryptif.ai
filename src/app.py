@@ -26,6 +26,7 @@ from cryptanalysis import *
 from keyless import *
 from pycipher import *
 
+from knnpractice import knn_my_text_please
 #####  <<<------------------------- initial setup ------------------------------------->>>  ###########
 #####  <<<------------------------- and secret key ------------------------------------>>>  ###########
 
@@ -126,7 +127,16 @@ def cryptanalysis():
 
 @app.route("/deepLearning", methods=["GET", "POST"])
 def deepLearning():
-    return render_template("deepLearning.html")
+    return render_template("deepLearning1.html")
+
+@app.route("/deepLearningknn", methods=["GET", "POST"])
+def deepLearningknn():
+    if request.method == "POST":
+        C_text = request.form["C_text"]
+        return render_template(
+            "deepLearningknn.html", Cipher_text=knn_my_text_please(C_text)
+        )
+    return render_template("deepLearningknn.html")
 
 
 #####  <<<------------------------- Encyption Home page ------------------------------->>>  ###########
