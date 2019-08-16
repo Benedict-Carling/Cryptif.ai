@@ -1,3 +1,5 @@
+# This file creates functions for keyless decryption algoritms
+
 from decryptionFunctions import frequency_list_generate
 import itertools
 from collections import OrderedDict

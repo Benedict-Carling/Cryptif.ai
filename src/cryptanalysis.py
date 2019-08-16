@@ -1,3 +1,5 @@
+#This page is used to create the functions for the Cryptanalysis page
+
 from decryptionFunctions import frequency_list_generate
 from collections import OrderedDict
 import operator
