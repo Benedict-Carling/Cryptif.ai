@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="src/static/Header.JPG" width="350" title="hover text">
+</p>
+
 # Cryptif.ai
 
 ## A Flask web app for decryption using Machine Learning techniques.
