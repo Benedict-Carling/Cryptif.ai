@@ -296,8 +296,6 @@ def frequency_list_generate(string):
     return freq
 
 
-print("abcdefghijklmnop")
-
 
 # IC(text, ncol) inside vignere
 

@@ -1,5 +1,5 @@
 # This file is used to create the raw data to import for the KNN page
-
+"""
 from decryptionFunctions import frequency_list_generate, IC
 from collections import OrderedDict
 import operator
@@ -42,7 +42,7 @@ def score_collection(string):
     return scores
 
 
-"""
+
 
 x_data = np.zeros(shape=(700, 8))
 

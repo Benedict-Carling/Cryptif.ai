@@ -241,7 +241,7 @@ def key_ceaser(string):
 ########################################### Keyless vignere string  ############################################
 # try to split input to every nth letter
 string = "OVPJTNVEIHMERQYIDZRRVTQOGPYITBKDTUITMZJNTIZMRNTRUUZHMUASYCDKOEBOVUWRNVIPSNAALRMOQEFQTUCNTFXKKWZSVVYWAZUFIMMGOHRLKNWIIGQUVCAAGZKMAVYOMTIFMOJMXQBXLHLOVUJNYGCWCYYCTGVHNWVBNASXOALGZMBRBEZPDGAABYBVVTNZKCGVBYMGAZPMOMXWFKLNVZAOWOIMGADZCVNOMRCEVONBWIWVLKZRZFVVOBWJNFBNMHVLYMXXOGMFBXMSAEEVYJOIAAIYIBYBNUHWCNAEMGTGJTEMKAHMERAGZSIOGIZILJNBUOKUMOHXHCHDNPTALSVVNZOMHTOSXRIBOSCMIQSNTUIZPOQEVVJMDZNQMTBZTEIWRDSYAGZAVYVNQJXIBXHRAGAORALBUBCREEIHWJZOGPKZDGAABYBCXOZXKBSAOEAAVZDGUBZZSZSGMTLHJBRTUVUGIIMJACHEEMGKVDNTAKDSMAYBNWINAALEMOMSBTJBFZEFPGDSWERVOVSSIFBKVQZFBZSQZGIBVEMOMSVBOASNTVUGBSYTUIZBVZRRIXMXPSGWBMFORVTRQCIMNBAZSORRMYQBOHREUZZY"
-print(string[0 : len(string) : 2])
+
 # find bhattaryya of every nth letter
 
 
@@ -262,7 +262,6 @@ def probable_key_length(string):
     return sort_index_IOC[::-1]
 
 
-print(probable_key_length(string))
 
 # new_string = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
 # divided_string = []
@@ -303,8 +302,6 @@ def get_vigenere_keys(string, key_length):
         answers = []
     return keys
 
-
-print(get_vigenere_keys(string, 7))
 
 ########list of unindexed IOC's
 

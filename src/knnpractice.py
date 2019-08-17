@@ -1,5 +1,5 @@
 # This python file is used to create the function which contains the TensorFlow session for KNN
-
+"""
 from decryptionFunctions import frequency_list_generate, IC
 from collections import OrderedDict
 import operator
@@ -17,8 +17,6 @@ import tensorflow as tf
 
 from knn import really_english_string2
 from knn import score_collection
-
-print("/n/n/n THIS IS WHERE MY ANALYSIS STARTS /n/n/n")
 
 
 def knn_my_text_please(ciphertext):
@@ -177,6 +175,4 @@ def knn_my_text_please(ciphertext):
 
     return cipher_encryption_type
 
-
-print("HERE we go boys---------")
-print(knn_my_text_please(VIGENERE_Enc(really_english_string2, "bened")))
+"""
