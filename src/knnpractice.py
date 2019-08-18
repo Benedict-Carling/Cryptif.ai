@@ -1,5 +1,5 @@
 # This python file is used to create the function which contains the TensorFlow session for KNN
-"""
+
 from decryptionFunctions import frequency_list_generate, IC
 from collections import OrderedDict
 import operator
@@ -175,4 +175,3 @@ def knn_my_text_please(ciphertext):
 
     return cipher_encryption_type
 
-"""
