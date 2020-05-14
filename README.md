@@ -4,7 +4,9 @@
 
 # Cryptif.ai
 
-## A Flask web app for decryption using Machine Learning techniques.
+## Deployed at | www.cryptif.co.uk |
+
+## A Flask web app for decryption using Statistical techniques.
 
 A personal project for me to learn more about machine learning, handling noisy data and cryptanalysis
 
