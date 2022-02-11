@@ -29,7 +29,7 @@ npm==0.1.1
 numpy==1.16.4
 optional-django==0.1.0
 pandas==0.25.0
-protobuf==3.9.0
+protobuf==3.15.0
 pycipher==0.5.2
 pydotplus==2.0.2
 pylint==2.3.1
